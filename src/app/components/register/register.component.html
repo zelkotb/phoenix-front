@@ -1,0 +1,134 @@
+<div class="register-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-card class="register-card">
+            <mat-card-title class="register-title">Formulaire d'inscription</mat-card-title>
+            <mat-card-content class="register-image">
+                <mat-progress-spinner strokeWidth=5 diameter=170 [mode]="mode">
+                </mat-progress-spinner>
+                <mat-icon class="register-icon" color="primary">account_circle</mat-icon>
+            </mat-card-content>
+            <p class="d-flex justify-content-center">
+                <mat-form-field class="p-6" appearance="outline">
+                    <mat-label>Nom</mat-label>
+                    <input required formControlName="lastName" matInput placeholder="Placeholder">
+                    <mat-icon
+                        [ngStyle]="{'color':(lastName.invalid && (lastName.dirty || lastName.touched)) ? 'red' : 'black' }"
+                        matSuffix>account_circle</mat-icon>
+                    <mat-hint align="end">{{lastName.value?.length || 0}}/50</mat-hint>
+                    <mat-error
+                        *ngIf="((lastName.invalid && (lastName.dirty || lastName.touched)) && lastName.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field class="p-6" appearance="outline">
+                    <mat-label>Prénom</mat-label>
+                    <input required formControlName="firstName" matInput placeholder="Placeholder">
+                    <mat-icon
+                        [ngStyle]="{'color':(firstName.invalid && (firstName.dirty || firstName.touched)) ? 'red' : 'black' }"
+                        matSuffix>account_circle</mat-icon>
+                    <mat-hint align="end">{{firstName.value?.length || 0}}/50</mat-hint>
+                    <mat-error
+                        *ngIf="((firstName.invalid && (firstName.dirty || firstName.touched)) && firstName.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field class="p-6" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input required formControlName="email" matInput placeholder="Placeholder">
+                    <mat-icon [ngStyle]="{'color':(email.invalid && (email.dirty || email.touched)) ? 'red' : 'black' }"
+                        matSuffix>
+                        mail_outline</mat-icon>
+                    <mat-hint>* ex : email@gmail.com</mat-hint>
+                    <mat-hint align="end">{{email.value?.length || 0}}/50</mat-hint>
+                    <mat-error *ngIf="((email.invalid && (email.dirty || email.touched)) && email.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                    <mat-error
+                        *ngIf="((email.invalid && (email.dirty || email.touched)) && (email.errors.email && !email.errors.required))">
+                        l'adresse mail n'est pas valide
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mot de Passe</mat-label>
+                    <input required matInput maxlength="50" [type]="hide ? 'password' : 'text'"
+                        formControlName="password" placeholder="Placeholder">
+                    <mat-icon
+                        [ngStyle]="{'color':(password.invalid && (password.dirty || password.touched)) ? 'red' : 'black' }"
+                        class="password_icon" (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' :
+                        'visibility'}}</mat-icon>
+                    <mat-hint>* ex : password</mat-hint>
+                    <mat-hint align="end">{{password.value?.length || 0}}/50</mat-hint>
+                    <mat-error *ngIf="(password.invalid && (password.dirty || password.touched))">
+                        champs requis</mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirmer le Mot de Passe</mat-label>
+                    <input [errorStateMatcher]="matcher" required matInput maxlength="50"
+                        [type]="hideRepeatPassword ? 'password' : 'text'" formControlName="repeatPassword"
+                        placeholder="Placeholder">
+                    <mat-icon
+                        [ngStyle]="{'color':(repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)) ? 'red' : 'black' }"
+                        class="password_icon" (click)="hideRepeatPassword = !hideRepeatPassword" matSuffix>
+                        {{hideRepeatPassword ?
+                        'visibility_off' :
+                        'visibility'}}</mat-icon>
+                    <mat-hint>* ex : password</mat-hint>
+                    <mat-hint align="end">{{repeatPassword.value?.length || 0}}/50</mat-hint>
+                    <mat-error
+                        *ngIf="(repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)) && repeatPassword.errors.required">
+                        champs requis</mat-error>
+                    <mat-error
+                        *ngIf="((repeatPassword.dirty || repeatPassword.touched))  && (!isPasswordConfirmationValid() && !repeatPassword.errors?.required)">
+                        le mot de passe n'est pas correct</mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Numéro de téléphone</mat-label>
+                    <input type="tel" maxlength="10" required formControlName="tel" matInput placeholder="Placeholder"
+                        pattern="[0-9]{10}">
+                    <mat-icon [ngStyle]="{'color':(tel.invalid && (tel.dirty || tel.touched)) ? 'red' : 'black' }"
+                        matSuffix>
+                        local_phone</mat-icon>
+                    <mat-hint align="end">{{tel.value?.length || 0}}/10</mat-hint>
+                    <mat-hint>* ex : 0600000000</mat-hint>
+
+                    <mat-error *ngIf="((tel.invalid && (tel.dirty || tel.touched)) && tel.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-radio-group color="primary" [formControl]="acceptCGU">
+                    <mat-radio-button value="true">
+                        J'ai lu et j'accepte les
+                        <a href="#" style="color:var(--primary-default)">Conditions Générales d'Utilisation
+                            (CGU)</a>
+                    </mat-radio-button>
+                </mat-radio-group>
+            </p>
+            <mat-card-actions class="register-button">
+                <button color="primary" type="submit" mat-raised-button
+                    [disabled]="loading || !registerForm.valid">S'INSCRIRE</button>
+                <button [disabled]="loading" color="primary" type="button" (click)="toLogin()" mat-raised-button>Vous
+                    avez un
+                    compte?</button>
+            </mat-card-actions>
+            <mat-card-footer>
+                <mat-card-subtitle>Toutes les champs avec "*" sont obligatoires</mat-card-subtitle>
+            </mat-card-footer>
+        </mat-card>
+    </form>
+</div>

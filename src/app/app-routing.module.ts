@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { LoginComponent } from './components/login/login.component';
-
-const base: string = "phoenix/";
+import { RegisterComponent } from './components/register/register.component';
 const routes: Routes = [
-  { path: '', redirectTo: '/' + base + 'login', pathMatch: 'full' },
-  { path: base + 'login', component: LoginComponent },
+  { path: '', redirectTo: '/' + environment.base + 'login', pathMatch: 'full' },
+  { path: environment.base + 'login', component: LoginComponent },
+  { path: environment.base + 'register', component: RegisterComponent },
 ];
 
 @NgModule({
