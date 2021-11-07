@@ -1,0 +1,55 @@
+<div class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-card class="login-card">
+            <mat-card-title class="login-title">Authentification</mat-card-title>
+            <mat-card-content class="login-image">
+                <mat-progress-spinner strokeWidth=5 diameter=170 [mode]="mode">
+                </mat-progress-spinner>
+                <mat-icon class="login-icon" color="primary">account_circle</mat-icon>
+            </mat-card-content>
+            <p class="d-flex justify-content-center">
+                <mat-form-field class="p-6" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input required formControlName="email" matInput placeholder="Placeholder">
+                    <mat-icon [ngStyle]="{'color':(email.invalid && (email.dirty || email.touched)) ? 'red' : 'black' }"
+                        matSuffix>
+                        mail_outline</mat-icon>
+                    <mat-hint>* ex : email@gmail.com</mat-hint>
+                    <mat-hint align="end">{{email.value?.length || 0}}/50</mat-hint>
+                    <mat-error *ngIf="((email.invalid && (email.dirty || email.touched)) && email.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                    <mat-error
+                        *ngIf="((email.invalid && (email.dirty || email.touched)) && (email.errors.email && !email.errors.required))">
+                        l'adresse mail n'est pas valide
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mot de Passe</mat-label>
+                    <input required matInput maxlength="50" [type]="hide ? 'password' : 'text'"
+                        formControlName="password" placeholder="Placeholder">
+                    <mat-icon
+                        [ngStyle]="{'color':(password.invalid && (password.dirty || password.touched)) ? 'red' : 'black' }"
+                        class="password_icon" (click)="hide = !hide" matSuffix>{{hide ? 'visibility_off' :
+                        'visibility'}}</mat-icon>
+                    <mat-hint>* ex : password</mat-hint>
+                    <mat-hint align="end">{{password.value?.length || 0}}/50</mat-hint>
+                    <mat-error *ngIf="(password.invalid && (password.dirty || password.touched))">
+                        champs requis</mat-error>
+                </mat-form-field>
+            </p>
+            <mat-card-actions class="login-button">
+                <button color="primary" type="submit" mat-raised-button
+                    [disabled]="loading || !loginForm.valid">CONNEXION</button>
+                <button color="primary" type="button" (click)="forgetPassword()" mat-raised-button>Mot de
+                    passe oublié?</button>
+            </mat-card-actions>
+            <mat-card-footer>
+                <mat-card-subtitle>Toutes les champs avec "*" sont obligatoires</mat-card-subtitle>
+            </mat-card-footer>
+        </mat-card>
+    </form>
+</div>
