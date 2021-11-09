@@ -71,10 +71,8 @@ export class RegisterComponent implements OnInit {
         this.login.password = this.password.value;
         this.loginService.login(this.login).subscribe(
           result => {
-            localStorage.setItem('token', result.token);
-            localStorage.setItem('email', result.userId);
-            localStorage.setItem('roles', JSON.stringify(result.roles));
-            this.router.navigate(['/']);
+            this.loginService.setToken(result.token, result.userId, JSON.stringify(result.roles));
+            this.routeAfterLogin();
           }
         )
         this.loading = false;
@@ -107,6 +105,15 @@ export class RegisterComponent implements OnInit {
       else {
         return passwordConfirmationInput.setErrors(null);
       }
+    }
+  }
+
+  routeAfterLogin() {
+    if (this.loginService.isAdmin()) {
+      this.router.navigate([environment.base + '/accounts']);
+    }
+    else if (this.loginService.isMerchant) {
+      this.router.navigate([environment.base + '/accounts']);
     }
   }
 

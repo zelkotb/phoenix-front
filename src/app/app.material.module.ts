@@ -15,6 +15,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -34,7 +38,11 @@ import { MatRadioModule } from '@angular/material/radio';
         MatProgressBarModule,
         MatDividerModule,
         MatProgressSpinnerModule,
-        MatRadioModule
+        MatRadioModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatTooltipModule,
+        MatSortModule
     ],
     exports: [
         MatTabsModule,
@@ -52,7 +60,11 @@ import { MatRadioModule } from '@angular/material/radio';
         MatProgressBarModule,
         MatDividerModule,
         MatProgressSpinnerModule,
-        MatRadioModule
+        MatRadioModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatTooltipModule,
+        MatSortModule
     ]
 })
 export class MaterialModule { }

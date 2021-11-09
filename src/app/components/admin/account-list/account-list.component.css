@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+.table-container{
+    margin: 20px;
+}
+
+.actions-icon{
+    cursor: pointer;
+}
+
+.delete-icon{
+  margin-right: 7px;
+}

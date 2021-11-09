@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/model/login';
+import { environment } from 'src/environments/environment';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -35,12 +36,10 @@ export class LoginComponent implements OnInit {
     this.login.password = this.password.value;
     this.loginService.login(this.login).subscribe(
       result => {
-        localStorage.setItem('token', result.token);
-        localStorage.setItem('email', result.userId);
-        localStorage.setItem('roles', JSON.stringify(result.roles));
+        this.loginService.setToken(result.token, result.userId, JSON.stringify(result.roles));
         this.mode = "";
         this.loading = false;
-        this.router.navigate(['/']);
+        this.routeAfterLogin();
       },
       error => {
         this.mode = "";
@@ -48,6 +47,15 @@ export class LoginComponent implements OnInit {
         this.openSnackBar(error, "Erreur")
       }
     )
+  }
+
+  routeAfterLogin() {
+    if (this.loginService.isAdmin()) {
+      this.router.navigate([environment.base + '/accounts']);
+    }
+    else if (this.loginService.isMerchant) {
+      this.router.navigate([environment.base + '/accounts']);
+    }
   }
 
   openSnackBar(message: string, action: string) {

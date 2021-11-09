@@ -47,4 +47,38 @@ export class LoginService {
     }
     return false;
   }
+
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  setToken(token: string, email: string, roles: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('email', email);
+    localStorage.setItem('roles', roles);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('roles');
+  }
+
+  isAdmin(): boolean {
+    return this.isRole('ADMIN');
+  }
+  isMerchant(): boolean {
+    return this.isRole('E_MERCHANT');
+  }
+
+  isBackOffice(): boolean {
+    return this.isRole('BACK_OFFICE');
+  }
+
+  isRole(role: string): boolean {
+    let roles: string[] = JSON.parse(localStorage.getItem('roles'));
+    if (roles.includes(role)) {
+      return true;
+    } return false;
+  }
 }
