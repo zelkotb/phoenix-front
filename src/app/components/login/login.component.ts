@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.loginService.logout();
   }
 
   get password() { return this.loginForm.get('password'); }

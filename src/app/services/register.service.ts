@@ -19,8 +19,13 @@ export class RegisterService {
       })
   };
 
-  register(register: Register) {
-    let url = environment.host + '/api/account/register';
+  register(register: Register, type: string) {
+    let url: string;
+    if (type === "admin") {
+      url = environment.host + '/api/account/register/office';
+    } else {
+      url = environment.host + '/api/account/register';
+    }
     return this.http.post(url, register, this.httpOptions).pipe(
       catchError(
         err => {

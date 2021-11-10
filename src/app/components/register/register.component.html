@@ -121,8 +121,9 @@
             </p>
             <mat-card-actions class="register-button">
                 <button color="primary" type="submit" mat-raised-button
-                    [disabled]="loading || !registerForm.valid">S'INSCRIRE</button>
-                <button [disabled]="loading" color="primary" type="button" (click)="toLogin()" mat-raised-button>Vous
+                    [disabled]="loading || !registerForm.valid">CREER LE COMPTE POUR BACK-OFFICE</button>
+                <button *ngIf="type!='admin'" [disabled]="loading" color="primary" type="button" (click)="toLogin()"
+                    mat-raised-button>Vous
                     avez un
                     compte?</button>
             </mat-card-actions>

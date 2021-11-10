@@ -5,6 +5,7 @@ import { LoginResponse } from '../model/loginResponse';
 import { Login } from '../model/login';
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/internal/operators';
+import jwt_decode from 'jwt-decode';
 
 
 @Injectable({
@@ -64,6 +65,15 @@ export class LoginService {
     localStorage.removeItem('roles');
   }
 
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    }
+    catch (Error) {
+      return null;
+    }
+  }
+
   isAdmin(): boolean {
     return this.isRole('ADMIN');
   }
@@ -76,7 +86,9 @@ export class LoginService {
   }
 
   isRole(role: string): boolean {
-    let roles: string[] = JSON.parse(localStorage.getItem('roles'));
+    let tokenInfo = this.getDecodedAccessToken(this.getToken());
+    console.log(tokenInfo);
+    let roles: string[] = tokenInfo.roles;
     if (roles.includes(role)) {
       return true;
     } return false;

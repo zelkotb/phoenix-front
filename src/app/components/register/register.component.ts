@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,6 +16,7 @@ import { RegisterService } from '../../services/register.service';
 })
 export class RegisterComponent implements OnInit {
 
+  @Input() type: string;
   mode: string = ""
   hide: boolean = true;
   hideRepeatPassword: boolean = true;
@@ -45,6 +46,9 @@ export class RegisterComponent implements OnInit {
     private loginService: LoginService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    if (this.type != 'admin') {
+      this.loginService.logout();
+    }
   }
 
   get password() { return this.registerForm.get('password'); }
@@ -65,16 +69,20 @@ export class RegisterComponent implements OnInit {
     this.register.phone = this.tel.value;
     this.register.cguAccepted = this.acceptCGU.value;
     this.register.city = "CASABLANCA"
-    this.registerService.register(this.register).subscribe(
+    this.registerService.register(this.register, this.type).subscribe(
       result => {
-        this.login.email = this.email.value;
-        this.login.password = this.password.value;
-        this.loginService.login(this.login).subscribe(
-          result => {
-            this.loginService.setToken(result.token, result.userId, JSON.stringify(result.roles));
-            this.routeAfterLogin();
-          }
-        )
+        if (this.type != 'admin') {
+          this.login.email = this.email.value;
+          this.login.password = this.password.value;
+          this.loginService.login(this.login).subscribe(
+            result => {
+              this.loginService.setToken(result.token, result.userId, JSON.stringify(result.roles));
+              this.routeAfterLogin();
+            }
+          )
+        } else {
+          this.routeAfterLogin();
+        }
         this.loading = false;
       },
       error => {
