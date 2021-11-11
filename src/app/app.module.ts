@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AccountListComponent } from './components/admin/account-list/account-list.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RegisterBackOfficeComponent } from './components/admin/register-back-office/register-back-office.component';
+import { ConfirmationComponent } from './components/common/confirmation/confirmation.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { RegisterBackOfficeComponent } from './components/admin/register-back-of
     LoginComponent,
     RegisterComponent,
     AccountListComponent,
-    RegisterBackOfficeComponent
+    RegisterBackOfficeComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

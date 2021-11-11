@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Account, AccountTable } from '../../../model/account';
 import { AccountService } from '../../../services/account.service';
+import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-account-list',
@@ -30,7 +32,8 @@ export class AccountListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private accountService: AccountService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.accountService.accountList().subscribe(
@@ -73,21 +76,43 @@ export class AccountListComponent implements OnInit, AfterViewInit {
   }
 
   deleteAccount(row: AccountTable) {
-    this.accountService.deleteAccount(row.id).subscribe(
-      result => {
-        this.accountsTable.splice(this.accountsTable.indexOf(row), 1);
-        this.dataSource = new MatTableDataSource(this.accountsTable);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        text:
+          "Êtes-Vous sûr que de supprimer ce Compte avec id : "
+          + row.id + "?",
       },
-      error => {
-        this.openSnackBar(error, "Erreur")
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirmed") {
+        this.accountService.deleteAccount(row.id).subscribe(
+          result => {
+            this.accountsTable.splice(this.accountsTable.indexOf(row), 1);
+            this.dataSource = new MatTableDataSource(this.accountsTable);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          },
+          error => {
+            this.openSnackBar(error, "Erreur")
+          }
+        )
       }
-    )
+    });
   }
 
   regeneratePassword(id: number) {
-    console.log(id);
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        text:
+          "Êtes-Vous sûr que de générer un nouveau mot de passe pour ce Compte avec id : "
+          + id + "?",
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirmed") {
+        console.log(id);
+      }
+    });
   }
 
   isDeletable(roles: string) {
