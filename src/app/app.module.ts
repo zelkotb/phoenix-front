@@ -13,6 +13,7 @@ import { AccountListComponent } from './components/admin/account-list/account-li
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RegisterBackOfficeComponent } from './components/admin/register-back-office/register-back-office.component';
 import { ConfirmationComponent } from './components/common/confirmation/confirmation.component';
+import { UpdateAccountComponent } from './components/update-account/update-account.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ConfirmationComponent } from './components/common/confirmation/confirma
     RegisterComponent,
     AccountListComponent,
     RegisterBackOfficeComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    UpdateAccountComponent
   ],
   imports: [
     BrowserModule,

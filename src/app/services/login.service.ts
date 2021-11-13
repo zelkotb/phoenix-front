@@ -59,6 +59,11 @@ export class LoginService {
     localStorage.setItem('roles', roles);
   }
 
+  updateToken(token: string, email: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('email', email);
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
@@ -87,7 +92,6 @@ export class LoginService {
 
   isRole(role: string): boolean {
     let tokenInfo = this.getDecodedAccessToken(this.getToken());
-    console.log(tokenInfo);
     let roles: string[] = tokenInfo.roles;
     if (roles.includes(role)) {
       return true;

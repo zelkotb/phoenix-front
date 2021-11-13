@@ -103,7 +103,6 @@
                         local_phone</mat-icon>
                     <mat-hint align="end">{{tel.value?.length || 0}}/10</mat-hint>
                     <mat-hint>* ex : 0600000000</mat-hint>
-
                     <mat-error *ngIf="((tel.invalid && (tel.dirty || tel.touched)) && tel.errors.required)">
                         champs
                         requis
@@ -121,7 +120,7 @@
             </p>
             <mat-card-actions class="register-button">
                 <button color="primary" type="submit" mat-raised-button
-                    [disabled]="loading || !registerForm.valid">CREER LE COMPTE POUR BACK-OFFICE</button>
+                    [disabled]="loading || !registerForm.valid">CREER LE COMPTE</button>
                 <button *ngIf="type!='admin'" [disabled]="loading" color="primary" type="button" (click)="toLogin()"
                     mat-raised-button>Vous
                     avez un

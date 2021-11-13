@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate([environment.base + '/accounts']);
     }
     else if (this.loginService.isMerchant) {
-      this.router.navigate([environment.base + '/accounts']);
+      this.router.navigate([environment.base + '/accounts/2']);
     }
   }
 
