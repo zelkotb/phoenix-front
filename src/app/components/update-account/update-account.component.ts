@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetAccountResponse, UpdateAccountRequest, UpdateAccountResponse } from 'src/app/model/account';
 import { AccountService } from 'src/app/services/account.service';
 import { LoginService } from 'src/app/services/login.service';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-update-account',
@@ -24,13 +26,15 @@ export class UpdateAccountComponent implements OnInit {
   getAccountResponse: GetAccountResponse;
   updateAccountResponse: UpdateAccountResponse;
   id: number;
-  loading: boolean = false;
+  loading: boolean;
   constructor(private accountService: AccountService,
     private route: ActivatedRoute, private _snackBar: MatSnackBar,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    public dialog: MatDialog) { }
 
   private routeSub: Subscription;
   ngOnInit(): void {
+    this.loading = true;
     this.routeSub = this.route.params.subscribe(
       params => {
         this.id = params['id'];
@@ -43,9 +47,11 @@ export class UpdateAccountComponent implements OnInit {
             this.updateAccountRequest.lastName = this.getAccountResponse.lastName;
             this.updateAccountRequest.phone = this.getAccountResponse.phone;
             this.updateAccountRequest.city = this.getAccountResponse.city;
+            this.loading = false;
           },
           error => {
-            this.openSnackBar(error, "Erreur")
+            this.loading = false;
+            this.openSnackBar(error, "Erreur");
           }
         )
       }
@@ -53,10 +59,9 @@ export class UpdateAccountComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    this.loading = false;
+    this.loading = true;
     this.accountService.updateAccount(this.updateAccountRequest, this.getAccountResponse.id).subscribe(
       result => {
-        this.loading = false;
         this.updateAccountResponse = result;
         this.updateAccountRequest.email = this.updateAccountResponse.email;
         this.updateAccountRequest.firstName = this.updateAccountResponse.firstName;
@@ -66,6 +71,7 @@ export class UpdateAccountComponent implements OnInit {
         if (this.updateAccountResponse.token != undefined && this.updateAccountResponse.token != "") {
           this.loginService.updateToken(this.updateAccountResponse.token, this.updateAccountResponse.email);
         }
+        this.loading = false;
       },
       error => {
         this.loading = false;
@@ -78,6 +84,14 @@ export class UpdateAccountComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: 5000,
       panelClass: ['snackbar'],
+    });
+  }
+
+  openChangePasswordPopUp() {
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      data: {
+        id: this.id,
+      },
     });
   }
 

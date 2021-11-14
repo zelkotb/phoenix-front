@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Account, GetAccountResponse, UpdateAccountRequest, UpdateAccountResponse } from '../model/account';
+import { Account, ChangePasswordRequest, GetAccountResponse, UpdateAccountRequest, UpdateAccountResponse } from '../model/account';
 import { environment } from '../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators';
@@ -21,7 +21,18 @@ export class AccountService {
 
   accountList(): Observable<Account[]> {
     let url = environment.host + '/api/account';
-    return this.http.get<Account[]>(url, this.httpOptions);
+    return this.http.get<Account[]>(url, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
   }
 
   deleteAccount(id: number) {
@@ -88,4 +99,28 @@ export class AccountService {
       )
     );
   }
+
+  changePassword(changePasswordRequest: ChangePasswordRequest, id: number) {
+    let url: string;
+    url = environment.host + '/api/account/' + id;
+    return this.http.post(url, changePasswordRequest, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Old Password Incorrect") {
+            return throwError("Ancien mot de passe est incorrect");
+          }
+          else if (err.error.httpStatusCode == 400) {
+            return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
+  }
+
 }

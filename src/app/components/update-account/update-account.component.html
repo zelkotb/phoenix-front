@@ -1,4 +1,4 @@
-<div class="register-container">
+<div class="register-container" *ngIf="!loading">
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
         <mat-card class="register-card">
             <mat-card-title class="register-title">Informations de Votre Compte</mat-card-title>
@@ -72,12 +72,18 @@
                 </mat-form-field>
             </p>
             <mat-card-actions class="register-button">
-                <button [disabled]="loading || !f.valid" color="primary" type="submit" mat-raised-button
-                    [disabled]="true">Modifier</button>
+                <button [disabled]="loading || !f.valid" color="primary" type="submit" mat-raised-button>Valider les
+                    modifications</button>
+                <button [disabled]="loading" color="primary" type="button" (click)="openChangePasswordPopUp()"
+                    mat-raised-button>Modifier le mot de passe</button>
             </mat-card-actions>
             <mat-card-footer>
                 <mat-card-subtitle>Toutes les champs avec "*" sont obligatoires</mat-card-subtitle>
             </mat-card-footer>
         </mat-card>
     </form>
+</div>
+
+<div class="table-container" *ngIf="loading">
+    <app-spinner></app-spinner>
 </div>

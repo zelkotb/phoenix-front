@@ -14,6 +14,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RegisterBackOfficeComponent } from './components/admin/register-back-office/register-back-office.component';
 import { ConfirmationComponent } from './components/common/confirmation/confirmation.component';
 import { UpdateAccountComponent } from './components/update-account/update-account.component';
+import { SpinnerComponent } from './components/common/spinner/spinner.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { UpdateAccountComponent } from './components/update-account/update-accou
     AccountListComponent,
     RegisterBackOfficeComponent,
     ConfirmationComponent,
-    UpdateAccountComponent
+    UpdateAccountComponent,
+    SpinnerComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

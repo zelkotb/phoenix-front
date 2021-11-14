@@ -13,7 +13,7 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  mode: string = ""
+  mode: string = "";
   hide: boolean = true;
   loading: boolean = false;
   login: Login = new Login();

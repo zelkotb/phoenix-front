@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container" *ngIf="!loading">
     <mat-form-field appearance="standard">
         <mat-label>Filtrer par toutes les champs</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="exemple: nom, prenom..." #input>
@@ -58,4 +58,8 @@
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Selectionner une page"></mat-paginator>
     </div>
+</div>
+
+<div class="table-container" *ngIf="loading">
+    <app-spinner></app-spinner>
 </div>

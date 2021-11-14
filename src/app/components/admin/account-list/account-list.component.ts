@@ -15,6 +15,7 @@ import { ConfirmationComponent } from '../../common/confirmation/confirmation.co
 })
 export class AccountListComponent implements OnInit, AfterViewInit {
 
+  loading: boolean;
   displayedColumns: string[] = [
     'id',
     'email',
@@ -36,6 +37,7 @@ export class AccountListComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.accountService.accountList().subscribe(
       result => {
         this.accounts = result;
@@ -52,8 +54,10 @@ export class AccountListComponent implements OnInit, AfterViewInit {
         this.dataSource = new MatTableDataSource(this.accountsTable);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.loading = false;
       },
       error => {
+        this.loading = false;
         this.openSnackBar(error, "Erreur")
       }
     )
@@ -79,7 +83,7 @@ export class AccountListComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ConfirmationComponent, {
       data: {
         text:
-          "Êtes-Vous sûr que de supprimer ce Compte avec id : "
+          "Êtes-Vous sûr de supprimer ce Compte avec id : "
           + row.id + "?",
       },
     });

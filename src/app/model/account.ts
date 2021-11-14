@@ -43,3 +43,8 @@ export class GetAccountResponse {
     lastName: string;
     city: string;
 }
+
+export class ChangePasswordRequest {
+    oldPassword: string;
+    newPassword: string;
+}
