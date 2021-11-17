@@ -48,3 +48,7 @@ export class ChangePasswordRequest {
     oldPassword: string;
     newPassword: string;
 }
+
+export class ForgetPasswordRequest {
+    email: string;
+}

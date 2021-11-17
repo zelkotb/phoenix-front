@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Account, ChangePasswordRequest, GetAccountResponse, UpdateAccountRequest, UpdateAccountResponse } from '../model/account';
+import { Account, ChangePasswordRequest, ForgetPasswordRequest, GetAccountResponse, UpdateAccountRequest, UpdateAccountResponse } from '../model/account';
 import { environment } from '../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators';
@@ -108,6 +108,55 @@ export class AccountService {
         err => {
           if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Old Password Incorrect") {
             return throwError("Ancien mot de passe est incorrect");
+          }
+          else if (err.error.httpStatusCode == 400) {
+            return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
+  }
+
+  forgetPassword(forgetPasswordRequest: ForgetPasswordRequest) {
+    let url: string;
+    url = environment.host + '/api/account/forgetPassword';
+    return this.http.post(url, forgetPasswordRequest, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Account does not exist") {
+            return throwError("L'adresse mail n'est pas correcte");
+          }
+          else if (err.error.httpStatusCode == 400) {
+            return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
+  };
+
+  generatePassword(id: number) {
+    let url: string;
+    url = environment.host + '/api/account/forgetPassword/' + id;
+    return this.http.post(url, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Account does not exist") {
+            return throwError("L'Id n'est pas correcte");
+          }
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "You Cannot generate a password For Admin") {
+            return throwError("Vous ne pouvez générer un mot de passe pour le compte admin");
           }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");

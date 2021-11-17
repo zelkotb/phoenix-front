@@ -16,6 +16,7 @@ import { ConfirmationComponent } from './components/common/confirmation/confirma
 import { UpdateAccountComponent } from './components/update-account/update-account.component';
 import { SpinnerComponent } from './components/common/spinner/spinner.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     ConfirmationComponent,
     UpdateAccountComponent,
     SpinnerComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     BrowserModule,

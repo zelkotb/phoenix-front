@@ -114,7 +114,14 @@ export class AccountListComponent implements OnInit, AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === "confirmed") {
-        console.log(id);
+        this.accountService.generatePassword(id).subscribe(
+          result => {
+            this.openSnackBar("Le mot de passe a été généré", "Opération Réussie")
+          },
+          error => {
+            this.openSnackBar(error, "Erreur")
+          }
+        );
       }
     });
   }

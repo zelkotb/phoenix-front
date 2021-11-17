@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/model/login';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../../services/login.service';
+import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
   constructor(private loginService: LoginService, private router: Router,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loginService.logout();
@@ -66,6 +69,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  forgetPassword() {
+  forgetPasswordPopUp() {
+    this.dialog.open(ForgetPasswordComponent);
   }
 }

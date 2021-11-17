@@ -1,4 +1,4 @@
-<div class="table-container" *ngIf="!loading">
+<div class="table-container">
     <mat-form-field appearance="standard">
         <mat-label>Filtrer par toutes les champs</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="exemple: nom, prenom..." #input>
