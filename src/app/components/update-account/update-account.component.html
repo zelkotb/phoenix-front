@@ -76,6 +76,11 @@
                     modifications</button>
                 <button [disabled]="loading" color="primary" type="button" (click)="openChangePasswordPopUp()"
                     mat-raised-button>Modifier le mot de passe</button>
+                <button (click)="openDeleteAccountPopUp()" [disabled]="loading" color="primary" type="button"
+                    mat-raised-button>
+                    <mat-icon matTooltip="Supprimer le compte">delete_sweep
+                    </mat-icon>
+                </button>
             </mat-card-actions>
             <mat-card-footer>
                 <mat-card-subtitle>Toutes les champs avec "*" sont obligatoires</mat-card-subtitle>

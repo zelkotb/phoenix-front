@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GetAccountResponse, UpdateAccountRequest, UpdateAccountResponse } from 'src/app/model/account';
 import { AccountService } from 'src/app/services/account.service';
 import { LoginService } from 'src/app/services/login.service';
+import { environment } from 'src/environments/environment';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { ConfirmationComponent } from '../common/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-update-account',
@@ -30,7 +32,8 @@ export class UpdateAccountComponent implements OnInit {
   constructor(private accountService: AccountService,
     private route: ActivatedRoute, private _snackBar: MatSnackBar,
     private loginService: LoginService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private router: Router) { }
 
   private routeSub: Subscription;
   ngOnInit(): void {
@@ -92,6 +95,28 @@ export class UpdateAccountComponent implements OnInit {
       data: {
         id: this.id,
       },
+    });
+  }
+
+  openDeleteAccountPopUp() {
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        text:
+          "Êtes-Vous sûr de supprimer ce Compte !! ?",
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirmed") {
+        this.accountService.deactivateAccount(this.id).subscribe(
+          result => {
+            this.router.navigate([environment.base + '/login']);
+            this.loginService.logout();
+          },
+          error => {
+            this.openSnackBar(error, "Erreur")
+          }
+        )
+      }
     });
   }
 

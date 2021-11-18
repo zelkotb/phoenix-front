@@ -24,6 +24,7 @@ export class AccountListComponent implements OnInit, AfterViewInit {
     'firstName',
     'city',
     'roles',
+    'status',
     'actions'
   ];
   dataSource: MatTableDataSource<AccountTable>;
@@ -41,14 +42,20 @@ export class AccountListComponent implements OnInit, AfterViewInit {
     this.accountService.accountList().subscribe(
       result => {
         this.accounts = result;
-        for (var account of this.accounts) {
-          this.accountTable.id = account.id;
-          this.accountTable.email = account.email;
-          this.accountTable.phone = account.phone;
-          this.accountTable.lastName = account.lastName;
-          this.accountTable.firstName = account.firstName;
-          this.accountTable.city = account.city;
-          this.accountTable.roles = account.roles.filter(Boolean).join(", ");
+        for (let i = 0; i < this.accounts.length; i++) {
+          this.accountTable.id = this.accounts[i].id;
+          this.accountTable.email = this.accounts[i].email;
+          this.accountTable.phone = this.accounts[i].phone;
+          this.accountTable.lastName = this.accounts[i].lastName;
+          this.accountTable.firstName = this.accounts[i].firstName;
+          if (String(this.accounts[i].active) === "false") {
+            this.accountTable.active = "Inactif";
+          } else {
+            this.accountTable.active = "Actif";
+          }
+          this.accountTable.city = this.accounts[i].city;
+          this.accountTable.roles = this.accounts[i].roles.filter(Boolean).join(", ");
+
           this.accountsTable.push(Object.assign({}, this.accountTable));
         }
         this.dataSource = new MatTableDataSource(this.accountsTable);
@@ -91,7 +98,9 @@ export class AccountListComponent implements OnInit, AfterViewInit {
       if (result === "confirmed") {
         this.accountService.deleteAccount(row.id).subscribe(
           result => {
-            this.accountsTable.splice(this.accountsTable.indexOf(row), 1);
+            let index = this.accountsTable.indexOf(row);
+            this.accountsTable.splice(index, 1);
+            this.accounts.splice(index, 1);
             this.dataSource = new MatTableDataSource(this.accountsTable);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -128,6 +137,62 @@ export class AccountListComponent implements OnInit, AfterViewInit {
 
   isDeletable(roles: string) {
     return !(roles.includes("E_MERCHANT") || roles.includes("ADMIN"));
+  }
+
+  deactivateAccount(row) {
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        text:
+          "Êtes-Vous sûr de desactiver ce Compte avec id : "
+          + row.id + "?",
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirmed") {
+        this.accountService.deactivateAccountForAdmin(row.id).subscribe(
+          result => {
+            let index = this.accountsTable.indexOf(row);
+            this.accountsTable[index].active = "Inactif";
+            this.accounts[index].active = false;
+            this.dataSource = new MatTableDataSource(this.accountsTable);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.openSnackBar("Le compte est desactivé", "Opération Réussie")
+          },
+          error => {
+            this.openSnackBar(error, "Erreur")
+          }
+        );
+      }
+    });
+  }
+
+  activateAccount(row) {
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        text:
+          "Êtes-Vous sûr de activer ce Compte avec id : "
+          + row.id + "?",
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirmed") {
+        this.accountService.activateAccountForAdmin(row.id).subscribe(
+          result => {
+            let index = this.accountsTable.indexOf(row);
+            this.accountsTable[index].active = "Actif";
+            this.accounts[index].active = true;
+            this.dataSource = new MatTableDataSource(this.accountsTable);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.openSnackBar("Le compte est activé", "Opération Réussie")
+          },
+          error => {
+            this.openSnackBar(error, "Erreur")
+          }
+        );
+      }
+    });
   }
 
   openSnackBar(message: string, action: string) {

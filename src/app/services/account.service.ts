@@ -132,6 +132,9 @@ export class AccountService {
           if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Account does not exist") {
             return throwError("L'adresse mail n'est pas correcte");
           }
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Account is blocked") {
+            return throwError("Ce Compte est bloqué ou supprimé");
+          }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");
           }
@@ -157,6 +160,81 @@ export class AccountService {
           }
           if (err.error.httpStatusCode == 400 && err.error.responseMessage === "You Cannot generate a password For Admin") {
             return throwError("Vous ne pouvez générer un mot de passe pour le compte admin");
+          }
+          else if (err.error.httpStatusCode == 400) {
+            return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
+  }
+
+  deactivateAccountForAdmin(id: number) {
+    let url: string;
+    url = environment.host + '/api/account/deactivate/admin/' + id;
+    return this.http.post(url, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Account does not exist") {
+            return throwError("L'Id n'est pas correcte");
+          }
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "You Cannot deactivate this account") {
+            return throwError("Vous ne pouvez desactiver un compte admin");
+          }
+          else if (err.error.httpStatusCode == 400) {
+            return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
+  }
+
+  activateAccountForAdmin(id: number) {
+    let url: string;
+    url = environment.host + '/api/account/activate/admin/' + id;
+    return this.http.post(url, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Account does not exist") {
+            return throwError("L'Id n'est pas correcte");
+          }
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "You Cannot activate this account") {
+            return throwError("Vous ne pouvez activer un compte admin");
+          }
+          else if (err.error.httpStatusCode == 400) {
+            return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
+  }
+
+  deactivateAccount(id: number) {
+    let url: string;
+    url = environment.host + '/api/account/deactivate/' + id;
+    return this.http.post(url, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "You Cannot deactivate this account") {
+            return throwError("Vous ne pouvez desactiver un compte admin");
           }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");

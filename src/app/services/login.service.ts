@@ -30,6 +30,9 @@ export class LoginService {
           if (err.error.httpStatusCode == 403) {
             return throwError("email ou mot de passe incorrect");
           }
+          else if (err.error.httpStatusCode == 401 && err.error.responseMessage === "User is blocked") {
+            return throwError("Cet Utilisateur est bloqué ou supprimé");
+          }
           else if (err.error.httpStatusCode == 500) {
             return throwError("Erreur Interne");
           }

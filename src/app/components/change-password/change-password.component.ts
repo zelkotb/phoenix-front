@@ -52,6 +52,7 @@ export class ChangePasswordComponent implements OnInit {
     this.changePasswordRequest.newPassword = this.password.value;
     this.accountService.changePassword(this.changePasswordRequest, this.data.id).subscribe(
       result => {
+        this.openSnackBar("Mot de passe modifié", "Opération Réussie");
         this.dialogRef.close();
       },
       error => {

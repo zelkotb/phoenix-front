@@ -4,6 +4,7 @@ export class AccountTable {
     phone: string;
     firstName: string;
     lastName: string;
+    active: string;
     city: string;
     roles: string;
 }
@@ -14,6 +15,7 @@ export class Account {
     phone: string;
     firstName: string;
     lastName: string;
+    active: boolean;
     city: string;
     roles: string[];
 }
