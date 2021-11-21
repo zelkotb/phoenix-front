@@ -7,28 +7,26 @@
     display: flex;
     justify-content: center;
 }
-.login-icon{
-    font-size: 170px;
-    margin-bottom: 170px;
-    margin-right: 148px;
-    position: absolute;
-}
 .login-button{
-    display: flex;
-    justify-content: center;
-}
-.login-image{
     display: flex;
     justify-content: center;
 }
 .login-title{
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    font-size: 30px;
+    text-decoration: underline;
 }
 mat-form-field {
   width: 100%;
 }
 .password_icon:hover{
     cursor: pointer;
+}
+.sub-form-design{
+    display: flex;
+    justify-content: center;
+}
+.sub-form-inputs{
+    margin-top: 50px;
 }

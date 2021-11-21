@@ -6,29 +6,29 @@
 .register-container{
     display: flex;
     justify-content: center;
-}
-.register-icon{
-    font-size: 170px;
-    margin-bottom: 170px;
-    margin-right: 148px;
-    position: absolute;
+    height: 600px;
 }
 .register-button{
-    display: flex;
-    justify-content: center;
-}
-.register-image{
     display: flex;
     justify-content: center;
 }
 .register-title{
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
-}
-mat-form-field {
-  width: 100%;
+    font-size: 30px;
+    text-decoration: underline;
 }
 .password_icon:hover{
     cursor: pointer;
+}
+
+.right-input{
+    margin-right: 20px;
+}
+.sub-form-design{
+    display: flex;
+    justify-content: center;
+}
+.sub-form-inputs{
+    margin-top: 50px;
 }

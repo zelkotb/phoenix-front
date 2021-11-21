@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/model/login';
@@ -43,7 +44,8 @@ export class RegisterComponent implements OnInit {
   );
 
   constructor(private router: Router, private registerService: RegisterService,
-    private loginService: LoginService, private _snackBar: MatSnackBar) { }
+    private loginService: LoginService, private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     if (this.type != 'admin') {
@@ -71,19 +73,9 @@ export class RegisterComponent implements OnInit {
     this.register.city = "CASABLANCA"
     this.registerService.register(this.register, this.type).subscribe(
       result => {
-        if (this.type != 'admin') {
-          this.login.email = this.email.value;
-          this.login.password = this.password.value;
-          this.loginService.login(this.login).subscribe(
-            result => {
-              this.loginService.setToken(result.token, result.userId, JSON.stringify(result.roles));
-              this.routeAfterLogin();
-            }
-          )
-        } else {
-          this.routeAfterLogin();
-        }
         this.loading = false;
+        this.toLogin();
+        this.openDialog();
       },
       error => {
         this.mode = "";
@@ -103,20 +95,15 @@ export class RegisterComponent implements OnInit {
     return password === confirmPassword ? true : false
   }
 
-  routeAfterLogin() {
-    if (this.loginService.isAdmin()) {
-      this.router.navigate([environment.base + '/accounts']);
-    }
-    else if (this.loginService.isMerchant) {
-      this.router.navigate([environment.base + '/accounts/2']);
-    }
-  }
-
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 5000,
       panelClass: ['snackbar'],
     });
+  }
+
+  openDialog() {
+    this.dialog.open(DialogElementsExampleDialog);
   }
 }
 
@@ -128,3 +115,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(((password != confirmPassword) && (control.dirty || control.touched)) || control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
+@Component({
+  selector: 'dialog-elements-example-dialog',
+  templateUrl: './dialog-elements-example-dialog.html',
+})
+export class DialogElementsExampleDialog { }

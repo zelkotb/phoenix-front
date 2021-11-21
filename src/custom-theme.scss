@@ -29,32 +29,33 @@ $client-theme: mat-light-theme((
 ));
 
 // define a real custom palette (using http://mcg.mbitson.com)
-
-$bv-brand: (
-    50 : #f1f6f6,
-    100 : #dbe9e9,
-    200 : #c4dbda,
-    300 : #accdcb,
-    400 : #9ac2c0,
-    500 : #88b7b5,
-    600 : #80b0ae,
-    700 : #75a7a5,
-    800 : #6b9f9d,
-    900 : #58908d,
-    A100 : #f9ffff,
-    A200 : #c6fffc,
-    A400 : #93fffa,
-    A700 : #7afff8,
+//#b5d7fe
+/* For use in src/lib/core/theming/_palette.scss */
+$md-mcgpalette0: (
+    50 : #e1efff,
+    100 : #b4d7fe,
+    200 : #82bcfe,
+    300 : #4fa1fd,
+    400 : #2a8dfc,
+    500 : #0479fc,
+    600 : #0371fc,
+    700 : #0366fb,
+    800 : #025cfb,
+    900 : #0149fa,
+    A100 : #ffffff,
+    A200 : #edf1ff,
+    A400 : #bacaff,
+    A700 : #a1b6ff,
     contrast: (
         50 : #000000,
         100 : #000000,
         200 : #000000,
         300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
         900 : #ffffff,
         A100 : #000000,
         A200 : #000000,
@@ -62,21 +63,23 @@ $bv-brand: (
         A700 : #000000,
     )
 );
-$bv-orange: (
-    50 : #f4f9f6,
-    100 : #e5efe8,
-    200 : #d3e5d8,
-    300 : #c1dac8,
-    400 : #b4d2bd,
-    500 : #a7cab1,
-    600 : #9fc5aa,
-    700 : #96bda1,
-    800 : #8cb798,
-    900 : #7cab88,
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-mcgpalette1: (
+    50 : #f6faff,
+    100 : #e9f3ff,
+    200 : #daebff,
+    300 : #cbe3fe,
+    400 : #c0ddfe,
+    500 : #b5d7fe,
+    600 : #aed3fe,
+    700 : #a5cdfe,
+    800 : #9dc7fe,
+    900 : #8dbefd,
     A100 : #ffffff,
-    A200 : #fefffe,
-    A400 : #cbffd8,
-    A700 : #b2ffc5,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
     contrast: (
         50 : #000000,
         100 : #000000,
@@ -130,8 +133,8 @@ $bv-red: (
 
 
 // mandatory stuff for theming
-$bv-palette-primary: mat-palette($bv-brand);
-$bv-palette-accent:  mat-palette($bv-orange);
+$bv-palette-primary: mat-palette($md-mcgpalette1);
+$bv-palette-accent:  mat-palette($md-mcgpalette0);
 $bv-palette-warn:  mat-palette($bv-red);
 
 // include the custom theme components into a theme object

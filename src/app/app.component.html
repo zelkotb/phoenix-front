@@ -1,1 +1,22 @@
+<mat-toolbar class="mat-elevation-z3">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Phoenix</span>
+    <span class="example-spacer"></span>
+    <button color="primary" *ngIf="!loginService.isLoggedIn()" routerLink="{{pathToLogin}}" class="side-button"
+        mat-raised-button>
+        <mat-icon>person</mat-icon>
+        <span class="aligned-with-icon">Se connecter</span>
+    </button>
+    <button color="primary" *ngIf="!loginService.isLoggedIn()" routerLink="{{pathToRegister}}" class="side-button"
+        mat-raised-button>
+        <mat-icon>person_add</mat-icon>
+        <span class="aligned-with-icon">Rejoignez Nous</span>
+    </button>
+    <button color="primary" *ngIf="loginService.isLoggedIn()" (click)="logout()" class="side-button" mat-raised-button>
+        <mat-icon>person</mat-icon>
+        <span class="aligned-with-icon">Se deconnecter</span>
+    </button>
+</mat-toolbar>
 <router-outlet></router-outlet>
