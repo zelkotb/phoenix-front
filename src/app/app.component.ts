@@ -22,4 +22,8 @@ export class AppComponent {
     this.loginService.logout();
     this.router.navigate([this.pathToLogin]);
   }
+
+  goToProfile(){
+    this.router.navigate([environment.base + '/accounts/'+this.loginService.getId()]);
+  }
 }

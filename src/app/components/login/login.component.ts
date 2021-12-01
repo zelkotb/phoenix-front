@@ -40,10 +40,10 @@ export class LoginComponent implements OnInit {
     this.login.password = this.password.value;
     this.loginService.login(this.login).subscribe(
       result => {
-        this.loginService.setToken(result.token, result.userId, JSON.stringify(result.roles));
+        this.loginService.setToken(result.token, result.userId, JSON.stringify(result.roles), result.id);
         this.mode = "";
         this.loading = false;
-        this.routeAfterLogin();
+        this.routeAfterLogin(result.id);
       },
       error => {
         this.mode = "";
@@ -53,12 +53,12 @@ export class LoginComponent implements OnInit {
     )
   }
 
-  routeAfterLogin() {
+  routeAfterLogin(id: number) {
     if (this.loginService.isAdmin()) {
       this.router.navigate([environment.base + '/accounts']);
     }
     else if (this.loginService.isMerchant) {
-      this.router.navigate([environment.base + '/accounts/2']);
+      this.router.navigate([environment.base + '/accounts/'+id]);
     }
   }
 

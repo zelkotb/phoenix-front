@@ -138,6 +138,9 @@ export class AccountService {
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");
           }
+          else if (err.error.httpStatusCode == 503) {
+            return throwError("erreur lors l'envoie du mail");
+          }
           else if (err.error.httpStatusCode == 500) {
             return throwError("Erreur Interne");
           }
@@ -163,6 +166,9 @@ export class AccountService {
           }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 503) {
+            return throwError("erreur lors l'envoie du mail");
           }
           else if (err.error.httpStatusCode == 500) {
             return throwError("Erreur Interne");

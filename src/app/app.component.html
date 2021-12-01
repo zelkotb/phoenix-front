@@ -14,6 +14,10 @@
         <mat-icon>person_add</mat-icon>
         <span class="aligned-with-icon">Rejoignez Nous</span>
     </button>
+    <button color="primary" *ngIf="loginService.isLoggedIn()" (click)="goToProfile()" class="side-button" mat-raised-button>
+        <mat-icon>person_pin</mat-icon>
+        <span class="aligned-with-icon">Modifier Votre Profile</span>
+    </button>
     <button color="primary" *ngIf="loginService.isLoggedIn()" (click)="logout()" class="side-button" mat-raised-button>
         <mat-icon>person</mat-icon>
         <span class="aligned-with-icon">Se deconnecter</span>

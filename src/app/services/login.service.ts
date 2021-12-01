@@ -56,10 +56,11 @@ export class LoginService {
     return localStorage.getItem('token');
   }
 
-  setToken(token: string, email: string, roles: string) {
+  setToken(token: string, email: string, roles: string, id: number) {
     localStorage.setItem('token', token);
     localStorage.setItem('email', email);
     localStorage.setItem('roles', roles);
+    localStorage.setItem('id', String(id));
   }
 
   updateToken(token: string, email: string) {
@@ -71,6 +72,14 @@ export class LoginService {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     localStorage.removeItem('roles');
+  }
+
+  getId(): number{
+    var id: string = localStorage.getItem('id');
+    if(id != undefined && id != null && id != ""){
+      console.log(id);
+      return Number(id);
+    }
   }
 
   getDecodedAccessToken(token: string): any {

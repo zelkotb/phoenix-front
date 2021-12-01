@@ -13,3 +13,8 @@ table {
   margin-right: 7px;
 }
 
+.mat-accent{
+  background-color: green;
+  color: #fff;
+}
+
