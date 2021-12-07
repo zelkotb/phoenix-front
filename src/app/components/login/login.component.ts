@@ -7,6 +7,7 @@ import { Login } from 'src/app/model/login';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../../services/login.service';
 import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
+import {SnackBarFailureComponent} from '../common/snack-bar-failure/snack-bar-failure.component';
 
 @Component({
   selector: 'app-login',
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
       error => {
         this.mode = "";
         this.loading = false;
-        this.openSnackBar(error, "Erreur")
+        this.openSnackBarFailure(error)
       }
     )
   }
@@ -62,10 +63,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 5000,
-      panelClass: ['snackbar'],
+  openSnackBarFailure(message: string) {
+    this._snackBar.openFromComponent(SnackBarFailureComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-failure',
+      duration: 5000
     });
   }
 

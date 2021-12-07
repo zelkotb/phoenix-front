@@ -1,0 +1,10 @@
+.snack-bar{
+    display: flex;
+}
+.dismiss{
+    margin-left: 30px;
+    justify-content: center;
+}
+.data{
+    margin-top: 10px;
+}

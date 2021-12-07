@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Account, AccountTable } from '../../../model/account';
 import { AccountService } from '../../../services/account.service';
 import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
+import {SnackBarSuccessComponent} from '../../common/snack-bar-success/snack-bar-success.component';
+import {SnackBarFailureComponent} from '../../common/snack-bar-failure/snack-bar-failure.component';
 
 @Component({
   selector: 'app-account-list',
@@ -65,7 +67,7 @@ export class AccountListComponent implements OnInit, AfterViewInit {
       },
       error => {
         this.loading = false;
-        this.openSnackBar(error, "Erreur")
+        this.openSnackBarFailure(error);
       }
     )
   }
@@ -106,7 +108,7 @@ export class AccountListComponent implements OnInit, AfterViewInit {
             this.dataSource.sort = this.sort;
           },
           error => {
-            this.openSnackBar(error, "Erreur")
+            this.openSnackBarFailure(error);
           }
         )
       }
@@ -125,10 +127,10 @@ export class AccountListComponent implements OnInit, AfterViewInit {
       if (result === "confirmed") {
         this.accountService.generatePassword(id).subscribe(
           result => {
-            this.openSnackBar("Le mot de passe a été généré", "Opération Réussie")
+            this.openSnackBarSuccess("Le mot de passe a été généré");
           },
           error => {
-            this.openSnackBar(error, "Erreur")
+            this.openSnackBarFailure(error);
           }
         );
       }
@@ -157,10 +159,10 @@ export class AccountListComponent implements OnInit, AfterViewInit {
             this.dataSource = new MatTableDataSource(this.accountsTable);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            this.openSnackBar("Le compte est desactivé", "Opération Réussie")
+            this.openSnackBarSuccess("Le compte est desactivé");
           },
           error => {
-            this.openSnackBar(error, "Erreur")
+            this.openSnackBarFailure(error);
           }
         );
       }
@@ -185,20 +187,29 @@ export class AccountListComponent implements OnInit, AfterViewInit {
             this.dataSource = new MatTableDataSource(this.accountsTable);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            this.openSnackBar("Le compte est activé", "Opération Réussie")
+            this.openSnackBarSuccess("Le compte est activé");
           },
           error => {
-            this.openSnackBar(error, "Erreur")
+            this.openSnackBarFailure(error);
           }
         );
       }
     });
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 5000,
-      panelClass: ['snackbar'],
+  openSnackBarSuccess(message: string) {
+    this._snackBar.openFromComponent(SnackBarSuccessComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-success',
+      duration: 5000
+    });
+  }
+
+  openSnackBarFailure(message: string) {
+    this._snackBar.openFromComponent(SnackBarFailureComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-failure',
+      duration: 5000
     });
   }
 

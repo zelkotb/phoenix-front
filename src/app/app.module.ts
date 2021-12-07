@@ -17,6 +17,8 @@ import { UpdateAccountComponent } from './components/update-account/update-accou
 import { SpinnerComponent } from './components/common/spinner/spinner.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { SnackBarSuccessComponent } from './components/common/snack-bar-success/snack-bar-success.component';
+import { SnackBarFailureComponent } from './components/common/snack-bar-failure/snack-bar-failure.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
     UpdateAccountComponent,
     SpinnerComponent,
     ChangePasswordComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    SnackBarSuccessComponent,
+    SnackBarFailureComponent
   ],
   imports: [
     BrowserModule,

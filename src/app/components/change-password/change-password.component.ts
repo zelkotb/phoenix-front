@@ -5,6 +5,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangePasswordRequest } from 'src/app/model/account';
 import { AccountService } from 'src/app/services/account.service';
+import {SnackBarSuccessComponent} from '../common/snack-bar-success/snack-bar-success.component';
+import {SnackBarFailureComponent} from '../common/snack-bar-failure/snack-bar-failure.component';
 
 @Component({
   selector: 'app-change-password',
@@ -52,20 +54,29 @@ export class ChangePasswordComponent implements OnInit {
     this.changePasswordRequest.newPassword = this.password.value;
     this.accountService.changePassword(this.changePasswordRequest, this.data.id).subscribe(
       result => {
-        this.openSnackBar("Mot de passe modifié", "Opération Réussie");
+        this.openSnackBarSuccess("Mot de passe modifié");
         this.dialogRef.close();
       },
       error => {
-        this.openSnackBar(error, "Erreur")
+        this.openSnackBarFailure(error)
       }
     )
 
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 5000,
-      panelClass: ['snackbar'],
+  openSnackBarSuccess(message: string) {
+    this._snackBar.openFromComponent(SnackBarSuccessComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-success',
+      duration: 5000
+    });
+  }
+
+  openSnackBarFailure(message: string) {
+    this._snackBar.openFromComponent(SnackBarFailureComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-failure',
+      duration: 5000
     });
   }
 }

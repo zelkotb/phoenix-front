@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ForgetPasswordRequest } from 'src/app/model/account';
 import { AccountService } from 'src/app/services/account.service';
+import {SnackBarSuccessComponent} from '../common/snack-bar-success/snack-bar-success.component';
+import {SnackBarFailureComponent} from '../common/snack-bar-failure/snack-bar-failure.component';
 
 @Component({
   selector: 'app-forget-password',
@@ -32,20 +34,29 @@ export class ForgetPasswordComponent implements OnInit {
     this.accountService.forgetPassword(this.forgetPasswordRequest).subscribe(
       result => {
         this.loading = false;
-        this.openSnackBar("Un email vous a été envoyé", "Opération Réussie");
+        this.openSnackBarSuccess("Un email vous a été envoyé");
         this.dialogRef.close();
       },
       error => {
         this.loading = false;
-        this.openSnackBar(error, "Erreur")
+        this.openSnackBarFailure(error)
       }
     )
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 5000,
-      panelClass: ['snackbar'],
+  openSnackBarSuccess(message: string) {
+    this._snackBar.openFromComponent(SnackBarSuccessComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-success',
+      duration: 5000
+    });
+  }
+
+  openSnackBarFailure(message: string) {
+    this._snackBar.openFromComponent(SnackBarFailureComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-failure',
+      duration: 5000
     });
   }
 }
