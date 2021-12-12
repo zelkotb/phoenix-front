@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'client';
   pathToLogin = environment.base + "login";
   pathToRegister = environment.base + "register";
+  baseUrl = environment.base;
 
   constructor(
     public loginService: LoginService,
@@ -26,4 +27,17 @@ export class AppComponent {
   goToProfile(){
     this.router.navigate([environment.base + '/accounts/'+this.loginService.getId()]);
   }
+
+  isActive(url: string, exact: boolean): boolean {
+    return this.router.isActive(environment.base + url, exact);
+  }
+
+  isActiveWithId(url: string, exact: boolean): boolean {
+    return this.router.isActive(environment.base + url + this.loginService.getId(), exact);
+  }
+
+  goToUrl(url : string){
+    this.router.navigate([environment.base + url]);
+  }
+  
 }

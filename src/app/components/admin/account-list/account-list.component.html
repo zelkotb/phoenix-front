@@ -1,8 +1,17 @@
 <div class="table-container">
-    <mat-form-field appearance="standard">
-        <mat-label>Filtrer par toutes les champs</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="exemple: nom, prenom..." #input>
-    </mat-form-field>
+    <div class="filter-div">
+        <mat-form-field appearance="standard">
+            <mat-label>Filtrer par toutes les champs</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="exemple: nom, prenom..." #input>
+        </mat-form-field>
+        <span class="example-spacer"></span>
+        <div>
+            <button routerLink="/{{baseUrl}}register/backoffice" class="backoffice-button" color="primary" mat-raised-button>
+                <mat-icon>person</mat-icon>
+                <span class="aligned-with-icon">Créer un compte pour le Backoffice</span>
+            </button>
+        </div>
+    </div>
 
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
@@ -38,7 +47,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Etat </th>
                 <td mat-cell *matCellDef="let row">
                     <button (click)="deactivateAccount(row)" matTooltip="Clicker pour desactiver ce compte"
-                        *ngIf="row.active === 'Actif'" color="accent" type="button" mat-raised-button> {{ row.active }}
+                        *ngIf="row.active === 'Actif'" color="primary" type="button" mat-flat-button> {{ row.active }}
                         &nbsp;</button>
                     <button (click)="activateAccount(row)" matTooltip="Clicker pour activer ce compte"
                         *ngIf="row.active != 'Actif'" color="warn" type="button"
@@ -49,11 +58,11 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
                 <td mat-cell *matCellDef="let row">
                     <mat-icon *ngIf="isDeletable(row.roles)" matTooltip="supprimer ce compte"
-                        (click)="deleteAccount(row)" class="actions-icon delete-icon" color="primary">
+                        (click)="deleteAccount(row)" class="actions-icon delete-icon" color="accent">
                         delete_forever
                     </mat-icon>
                     <mat-icon matTooltip="regénérer le mot de passe" (click)="regeneratePassword(row.id)"
-                        class="actions-icon" color="primary">lock
+                        class="actions-icon" color="accent">lock
                     </mat-icon>
                 </td>
             </ng-container>

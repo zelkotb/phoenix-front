@@ -77,7 +77,6 @@ export class LoginService {
   getId(): number{
     var id: string = localStorage.getItem('id');
     if(id != undefined && id != null && id != ""){
-      console.log(id);
       return Number(id);
     }
   }
@@ -104,6 +103,9 @@ export class LoginService {
 
   isRole(role: string): boolean {
     let tokenInfo = this.getDecodedAccessToken(this.getToken());
+    if(tokenInfo == undefined || tokenInfo ==null){
+      return false;
+    }
     let roles: string[] = tokenInfo.roles;
     if (roles.includes(role)) {
       return true;

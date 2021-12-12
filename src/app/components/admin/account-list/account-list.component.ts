@@ -9,6 +9,7 @@ import { AccountService } from '../../../services/account.service';
 import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
 import {SnackBarSuccessComponent} from '../../common/snack-bar-success/snack-bar-success.component';
 import {SnackBarFailureComponent} from '../../common/snack-bar-failure/snack-bar-failure.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-account-list',
@@ -33,6 +34,7 @@ export class AccountListComponent implements OnInit, AfterViewInit {
   accounts: Account[];
   accountsTable: AccountTable[] = [];
   accountTable: AccountTable = new AccountTable();
+  baseUrl = environment.base;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private accountService: AccountService,

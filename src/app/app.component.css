@@ -9,10 +9,56 @@ mat-toolbar{
 mat-icon{
     cursor: pointer;
 }
+.mat-icon{
+    font-size: 20px;
+}
 .side-button{
     margin-right: 10px;
 }
 .mat-toolbar{
     background-color: white;
     color: black;
+}
+mat-drawer-container{
+    height: 100%;
+}
+mat-drawer{
+    width: 250px;
+    height: 700px;
+    position: fixed;
+    z-index: 99;
+    margin-top: 63px;
+}
+ul{
+    margin: 0px;
+    padding: 0px;
+}
+li{
+    list-style-type: none;
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 30px;
+    margin-left: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    outline: 0;
+    border-radius: 2px;
+}
+.aligned-with-icon-new{
+    position: relative;
+    top: -4px;
+    margin-left: 5px;  /* optional */
+}
+li:hover{
+    background-color: #F6B853;
+}
+.li-1:hover{
+    background-color: white;
+    cursor: auto;
+}
+.li-1{
+    margin-top: 0px;
+}
+.active-item{
+    background-color: #F6B853;
 }

@@ -75,8 +75,12 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(this.register, this.type).subscribe(
       result => {
         this.loading = false;
-        this.toLogin();
-        this.openDialog();
+        if(this.loginService.isAdmin){
+          this.toAccountList();
+        }else{
+          this.toLogin();
+          this.openDialog();
+        }
       },
       error => {
         this.mode = "";
@@ -88,6 +92,10 @@ export class RegisterComponent implements OnInit {
 
   toLogin() {
     this.router.navigate([environment.base + "/login"]);
+  }
+
+  toAccountList() {
+    this.router.navigate([environment.base + "/accounts"]);
   }
 
   isPasswordConfirmationValid(): boolean {

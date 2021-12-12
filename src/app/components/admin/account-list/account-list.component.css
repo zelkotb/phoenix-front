@@ -12,9 +12,13 @@ table {
 .delete-icon{
   margin-right: 7px;
 }
-
-.mat-accent{
-  background-color: green;
-  color: #fff;
+.example-spacer {
+  flex: 1 1 auto;
+}
+.filter-div{
+  display: flex;
+}
+.backoffice-button{
+  margin-top: 20px;
 }
 

@@ -1,26 +1,66 @@
 <mat-toolbar color="accent" class="mat-elevation-z3">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button *ngIf="loginService.isLoggedIn()" (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <button *ngIf="!loginService.isLoggedIn()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
     </button>
     <span>Phoenix</span>
     <span class="example-spacer"></span>
-    <button color="primary" *ngIf="!loginService.isLoggedIn()" routerLink="{{pathToLogin}}" class="side-button"
-        mat-raised-button>
+    <button color="accent" *ngIf="!loginService.isLoggedIn()" routerLink="{{pathToLogin}}" class="side-button"
+    mat-stroked-button>
         <mat-icon>person</mat-icon>
         <span class="aligned-with-icon">Se connecter</span>
     </button>
-    <button color="primary" *ngIf="!loginService.isLoggedIn()" routerLink="{{pathToRegister}}" class="side-button"
-        mat-raised-button>
+    <button color="accent" *ngIf="!loginService.isLoggedIn()" routerLink="{{pathToRegister}}" class="side-button"
+    mat-stroked-button>
         <mat-icon>person_add</mat-icon>
         <span class="aligned-with-icon">Rejoignez Nous</span>
     </button>
-    <button color="primary" *ngIf="loginService.isLoggedIn()" (click)="goToProfile()" class="side-button" mat-raised-button>
+    <button color="accent" *ngIf="loginService.isLoggedIn()" (click)="goToProfile()" class="side-button" mat-stroked-button>
         <mat-icon>person_pin</mat-icon>
         <span class="aligned-with-icon">Modifier Votre Profile</span>
     </button>
-    <button color="primary" *ngIf="loginService.isLoggedIn()" (click)="logout()" class="side-button" mat-raised-button>
+    <button color="accent" *ngIf="loginService.isLoggedIn()" (click)="logout()" class="side-button" mat-stroked-button>
         <mat-icon>person</mat-icon>
         <span class="aligned-with-icon">Se deconnecter</span>
     </button>
+    <button (click)="goToUrl('products')" matTooltip="cliquer pour aller au Stock" mat-stroked-button *ngIf="loginService.isLoggedIn() && loginService.isMerchant()">
+        <mat-icon>store</mat-icon>
+    </button>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<mat-drawer-container>
+    <mat-drawer #drawer>
+        <ul>
+            <li class="li-1">
+            </li>
+            <li 
+            [class.active-item]="isActive('accounts',true)" 
+            *ngIf="loginService.isAdmin()"
+            routerLink="{{baseUrl}}accounts"
+            >
+                <mat-icon class="mat-icon">star</mat-icon>
+                <span class="aligned-with-icon-new">Gestion des Comptes</span>
+            </li>
+            <li 
+            [class.active-item]="isActive('products',true)" 
+            *ngIf="loginService.isMerchant()"
+            routerLink="{{baseUrl}}products"
+            >
+                <mat-icon class="mat-icon">store</mat-icon>
+                <span class="aligned-with-icon-new">Produits</span>
+            </li>
+            <li 
+            [class.active-item]="isActiveWithId('accounts/',true)" 
+            *ngIf="loginService.isLoggedIn()"
+            (click)="goToProfile()"
+            >
+                <mat-icon class="mat-icon">person</mat-icon>
+                <span class="aligned-with-icon-new">Mon Compte</span>
+            </li>
+        </ul>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

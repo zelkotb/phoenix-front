@@ -19,6 +19,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { SnackBarSuccessComponent } from './components/common/snack-bar-success/snack-bar-success.component';
 import { SnackBarFailureComponent } from './components/common/snack-bar-failure/snack-bar-failure.component';
+import { ProductComponent } from './components/merchant/product/product.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { SnackBarFailureComponent } from './components/common/snack-bar-failure/
     ChangePasswordComponent,
     ForgetPasswordComponent,
     SnackBarSuccessComponent,
-    SnackBarFailureComponent
+    SnackBarFailureComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

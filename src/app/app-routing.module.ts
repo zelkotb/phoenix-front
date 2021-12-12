@@ -7,7 +7,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { MerchantGuard } from './guards/merchant.guard';
+
 import { UpdateAccountComponent } from './components/update-account/update-account.component';
+import { ProductComponent } from './components/merchant/product/product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/' + environment.base + 'login', pathMatch: 'full' },
@@ -24,6 +27,10 @@ const routes: Routes = [
   {
     path: environment.base + 'accounts/:id', component: UpdateAccountComponent
     , canActivate: [AuthGuard]
+  },
+  {
+    path: environment.base + 'products', component: ProductComponent
+    , canActivate: [AuthGuard, MerchantGuard]
   },
 ];
 
