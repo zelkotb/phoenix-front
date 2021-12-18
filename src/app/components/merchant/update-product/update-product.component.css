@@ -1,0 +1,21 @@
+.update-product-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: -50px;
+}
+.right-input{
+    margin-right: 20px;
+}
+.sub-form-inputs{
+    margin-top: 50px;
+}
+.description{
+    width: 100%;
+}
+.submit-button{
+    margin-left: 30px;
+}
+.spinner{
+    display: flex;
+    justify-content: center;
+}

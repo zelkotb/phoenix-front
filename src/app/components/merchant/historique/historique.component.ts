@@ -50,6 +50,22 @@ export class HistoriqueComponent implements OnInit {
     )
   }
 
+  refresh(){
+    this.historyService.listHistory().subscribe(
+      result => {
+        this.histories = result;
+        this.dataSource = new MatTableDataSource(this.histories);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+        this.openSnackBarFailure(error);
+      }
+    )
+  }
+
   ngAfterViewInit() {
     if (this.dataSource != undefined) {
       this.dataSource.paginator = this.paginator;

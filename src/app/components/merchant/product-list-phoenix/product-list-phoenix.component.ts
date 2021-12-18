@@ -9,6 +9,7 @@ import { ProductService } from '../../../services/product.service';
 import {SnackBarSuccessComponent} from '../../common/snack-bar-success/snack-bar-success.component';
 import {SnackBarFailureComponent} from '../../common/snack-bar-failure/snack-bar-failure.component';
 import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
+import { UpdateProductComponent } from '../update-product/update-product.component';
 
 @Component({
   selector: 'app-product-list-phoenix',
@@ -35,6 +36,30 @@ export class ProductListPhoenixComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+    this.productService.listProducts(undefined).subscribe(
+      result => {
+        this.products = result;
+        this.dataSource = new MatTableDataSource(this.products);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+        this.openSnackBarFailure(error);
+      }
+    )
+  }
+
+  updateProductPopup(id){
+    this.dialog.open(UpdateProductComponent, {
+      data: {
+        id: id,
+      },
+    });
+  }
+
+  refresh(){
     this.productService.listProducts(undefined).subscribe(
       result => {
         this.products = result;

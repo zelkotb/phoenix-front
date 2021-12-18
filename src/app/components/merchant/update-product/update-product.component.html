@@ -1,0 +1,104 @@
+<div class="update-product-container">
+    <div class="update-product-title">
+        <h1>Produit</h1>
+    </div>
+    <form [formGroup]="updateProductForm" (ngSubmit)="onSubmit()">
+        <div class="sub-form-inputs">
+            <p class="d-flex justify-content-center">
+                <mat-form-field class="right-input" appearance="outline">
+                    <mat-label>Nom</mat-label>
+                    <input [ngModel]="product?.name"  maxlength="50" required formControlName="name" matInput placeholder="Placeholder">
+                    <mat-icon
+                        [ngStyle]="{'color':(name.invalid && (name.dirty || name.touched)) ? 'red' : 'black' }"
+                        matSuffix>style</mat-icon>
+                    <mat-hint align="end">{{name.value?.length || 0}}/50</mat-hint>
+                    <mat-hint>* Nom du produit</mat-hint>
+                    <mat-error
+                        *ngIf="((name.invalid && (name.dirty || name.touched)) && name.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="p-6" appearance="outline">
+                    <mat-label>Référence</mat-label>
+                    <input [ngModel]="product?.reference" maxlength="50" required formControlName="reference" matInput placeholder="Placeholder">
+                    <mat-icon
+                        [ngStyle]="{'color':(reference.invalid && (reference.dirty || reference.touched)) ? 'red' : 'black' }"
+                        matSuffix>vpn_key</mat-icon>
+                    <mat-hint align="end">{{reference.value?.length || 0}}/50</mat-hint>
+                    <mat-hint>* Reference du produit</mat-hint>
+                    <mat-error
+                        *ngIf="((reference.invalid && (reference.dirty || reference.touched)) && reference.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+            <mat-form-field class="description" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea [ngModel]="product?.description" maxlength="300" formControlName="description" matInput placeholder="Ex. It makes me feel..."></textarea>
+                <mat-icon matSuffix>description</mat-icon>
+                <mat-hint align="end">{{description.value?.length || 0}}/300</mat-hint>
+                <mat-hint>* Description du produit</mat-hint>
+            </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field style="width: 47.5%;" class="right-input" appearance="outline">
+                    <mat-label>Catégory</mat-label>
+                    <mat-select [ngModel]="product?.category" formControlName="category">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+                    </mat-select>
+                    <mat-hint>* Catégory du produit</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Prix Unitaire en Dhs</mat-label>
+                    <input [ngModel]="product?.price" maxlength="50" required formControlName="price" matInput placeholder="Placeholder" 
+                    pattern="^\d+(,\d{1,2})?$">
+                    <mat-icon
+                        [ngStyle]="{'color':(price.invalid && (price.dirty || price.touched)) ? 'red' : 'black' }"
+                        matSuffix>attach_money</mat-icon>
+                    <mat-hint align="end">{{price.value?.length || 0}}/50</mat-hint>
+                    <mat-hint>* Prix en Dirham : exemple : 33,4</mat-hint>
+                    <mat-error
+                        *ngIf="((price.invalid && (price.dirty || price.touched)) && price.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                    <mat-error
+                    *ngIf="((price.invalid && (price.dirty || price.touched)) && price.errors.pattern)">
+                    format du prix est invalid
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p class="d-flex justify-content-center">
+                <mat-form-field class="right-input"class="p-6" appearance="outline">
+                    <mat-label>Poids Unitaire en gramme</mat-label>
+                    <input [ngModel]="product?.weight" maxlength="50" required formControlName="weight" matInput placeholder="Placeholder" pattern="^\d+(,\d{1,2})?$">
+                    <mat-icon
+                        [ngStyle]="{'color':(weight.invalid && (weight.dirty || weight.touched)) ? 'red' : 'black' }"
+                        matSuffix>table_chart</mat-icon>
+                    <mat-hint align="end">{{weight.value?.length || 0}}/50</mat-hint>
+                    <mat-hint>* Poids en Kg : exemple : 1,5</mat-hint>
+                    <mat-error
+                        *ngIf="((weight.invalid && (weight.dirty || weight.touched)) && weight.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                    <mat-error
+                    *ngIf="((weight.invalid && (weight.dirty || weight.touched)) && weight.errors.pattern)">
+                    format du poids est invalid
+                    </mat-error>
+                </mat-form-field>
+                <button class="submit-button" color="primary" type="submit" mat-raised-button
+                [disabled]="loading || !updateProductForm.valid">MODIFIER LE PRODUIT
+            </button>
+            </p>
+            <div class="spinner">
+                <mat-progress-spinner *ngIf="loading" strokeWidth=5 diameter=50 [mode]="mode">
+                </mat-progress-spinner>
+            </div>
+        </div>
+    </form>
+</div>

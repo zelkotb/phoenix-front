@@ -83,7 +83,7 @@ export class ProductService {
   }
 
   updateProduct(updateProduct: UpdateProduct, id: number){
-    let url = environment.host + '/api/products/';
+    let url = environment.host + '/api/products/'+id;
   return this.http.put(url, updateProduct, this.httpOptions).pipe(
     catchError(
       err => {

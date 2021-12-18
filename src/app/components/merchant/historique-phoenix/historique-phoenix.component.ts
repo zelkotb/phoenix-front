@@ -53,6 +53,22 @@ export class HistoriquePhoenixComponent implements OnInit {
     )
   }
 
+  refresh(){
+    this.historyService.listHistoryPhoenix().subscribe(
+      result => {
+        this.historiesPhoenix = result;
+        this.dataSource = new MatTableDataSource(this.historiesPhoenix);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+        this.openSnackBarFailure(error);
+      }
+    )
+  }
+
   ngAfterViewInit() {
     if (this.dataSource != undefined) {
       this.dataSource.paginator = this.paginator;

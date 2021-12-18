@@ -41,9 +41,11 @@ export class CreateProductComponent implements OnInit {
     private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.categoryService.listCategories().subscribe(
       result => {
         this.categories = result;
+        this.loading = false;
       },
       error => {
         this.loading = false;
@@ -78,7 +80,7 @@ export class CreateProductComponent implements OnInit {
     this.productService.createProduct(this.createProduct).subscribe(
       result => {
         setTimeout(function(){location.reload()}, 2000);
-        this.openSnackBarSuccess("Produit est Créé avec succès")
+        this.openSnackBarSuccess("Produit créé avec succès")
       },
       error => {
         this.mode = "";

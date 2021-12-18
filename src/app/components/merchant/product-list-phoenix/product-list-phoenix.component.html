@@ -36,7 +36,7 @@
                          class="actions-icon delete-icon" color="accent">
                         delete_forever
                     </mat-icon>
-                    <mat-icon matTooltip="modifier ce produit" 
+                    <mat-icon (click)="updateProductPopup(row.id)" matTooltip="modifier ce produit" 
                         class="actions-icon" color="accent">update
                     </mat-icon>
                     <mat-icon matTooltip="modifier la quantité" 
