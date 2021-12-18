@@ -1,0 +1,164 @@
+<div class="create-product-container">
+    <div>
+        <form [formGroup]="createProductForm" (ngSubmit)="onSubmit()">
+            <mat-card class="create-product-card">
+                <mat-card-title class="create-product-title">Produit</mat-card-title>
+                    <div class="sub-form-inputs">
+                        <p class="d-flex justify-content-center">
+                            <mat-form-field class="right-input" appearance="outline">
+                                <mat-label>Nom</mat-label>
+                                <input maxlength="50" required formControlName="name" matInput placeholder="Placeholder">
+                                <mat-icon
+                                    [ngStyle]="{'color':(name.invalid && (name.dirty || name.touched)) ? 'red' : 'black' }"
+                                    matSuffix>style</mat-icon>
+                                <mat-hint align="end">{{name.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Nom du produit</mat-hint>
+                                <mat-error
+                                    *ngIf="((name.invalid && (name.dirty || name.touched)) && name.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="p-6" appearance="outline">
+                                <mat-label>Référence</mat-label>
+                                <input maxlength="50" required formControlName="reference" matInput placeholder="Placeholder">
+                                <mat-icon
+                                    [ngStyle]="{'color':(reference.invalid && (reference.dirty || reference.touched)) ? 'red' : 'black' }"
+                                    matSuffix>vpn_key</mat-icon>
+                                <mat-hint align="end">{{reference.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Reference du produit</mat-hint>
+                                <mat-error
+                                    *ngIf="((reference.invalid && (reference.dirty || reference.touched)) && reference.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p class="d-flex justify-content-center">
+                        <mat-form-field class="description" appearance="outline">
+                            <mat-label>Description</mat-label>
+                            <textarea maxlength="300" formControlName="description" matInput placeholder="Ex. It makes me feel..."></textarea>
+                            <mat-icon matSuffix>description</mat-icon>
+                            <mat-hint align="end">{{description.value?.length || 0}}/300</mat-hint>
+                            <mat-hint>* Description du produit</mat-hint>
+                        </mat-form-field>
+                        </p>
+                        <p class="d-flex justify-content-center">
+                            <mat-form-field style="width: 47.5%;" class="right-input" appearance="outline">
+                                <mat-label>Catégory</mat-label>
+                                <mat-select formControlName="category">
+                                <mat-option>--</mat-option>
+                                <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+                                </mat-select>
+                                <mat-hint>* Catégory du produit</mat-hint>
+                              </mat-form-field>
+                            <mat-form-field class="p-6" appearance="outline">
+                                <mat-label>Quantité</mat-label>
+                                <input maxlength="50" required formControlName="quantity" matInput placeholder="Placeholder" pattern="^(0|[1-9][0-9]*)$">
+                                <mat-icon
+                                    [ngStyle]="{'color':(quantity.invalid && (quantity.dirty || quantity.touched)) ? 'red' : 'black' }"
+                                    matSuffix>add_shopping_cart</mat-icon>
+                                <mat-hint align="end">{{quantity.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Quantité dans votre depot</mat-hint>
+                                <mat-error
+                                    *ngIf="((quantity.invalid && (quantity.dirty || quantity.touched)) && quantity.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                                <mat-error
+                                *ngIf="((quantity.invalid && (quantity.dirty || quantity.touched)) && quantity.errors.pattern)">
+                                format de la quantité est invalid
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p class="d-flex justify-content-center">
+                            <mat-form-field class="right-input" appearance="outline">
+                                <mat-label>Prix Unitaire en Dhs</mat-label>
+                                <input maxlength="50" required formControlName="price" matInput placeholder="Placeholder" 
+                                pattern="^\d+(,\d{1,2})?$">
+                                <mat-icon
+                                    [ngStyle]="{'color':(price.invalid && (price.dirty || price.touched)) ? 'red' : 'black' }"
+                                    matSuffix>attach_money</mat-icon>
+                                <mat-hint align="end">{{price.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Prix en Dirham : exemple : 33,4</mat-hint>
+                                <mat-error
+                                    *ngIf="((price.invalid && (price.dirty || price.touched)) && price.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                                <mat-error
+                                *ngIf="((price.invalid && (price.dirty || price.touched)) && price.errors.pattern)">
+                                format du prix est invalid
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="p-6" appearance="outline">
+                                <mat-label>Poids Unitaire en gramme</mat-label>
+                                <input maxlength="50" required formControlName="weight" matInput placeholder="Placeholder" pattern="^\d+(,\d{1,2})?$">
+                                <mat-icon
+                                    [ngStyle]="{'color':(weight.invalid && (weight.dirty || weight.touched)) ? 'red' : 'black' }"
+                                    matSuffix>table_chart</mat-icon>
+                                <mat-hint align="end">{{weight.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Poids en Kg : exemple : 1,5</mat-hint>
+                                <mat-error
+                                    *ngIf="((weight.invalid && (weight.dirty || weight.touched)) && weight.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                                <mat-error
+                                *ngIf="((weight.invalid && (weight.dirty || weight.touched)) && weight.errors.pattern)">
+                                format du poids est invalid
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p class="d-flex justify-content-center">
+                            <mat-slide-toggle
+                                [(ngModel)]="isChecked"
+                                [ngModelOptions]="{standalone: true}"
+                                color="primary"
+                                checked="false"
+                                class="right-input-slide"
+                                [disabled]="loading"
+                                >
+                                J'ai un stock chez phoenix?  
+                            </mat-slide-toggle>
+                            <mat-form-field 
+                                *ngIf="isChecked"
+                                class="p-6" appearance="outline">
+                                <mat-label>Quantité</mat-label>
+                                <input maxlength="50" 
+                                    required 
+                                    [(ngModel)]="createProduct.operationQuantity" 
+                                    [ngModelOptions]="{standalone: true}"
+                                    #quantityPhoenix="ngModel"
+                                    matInput 
+                                    placeholder="Placeholder" 
+                                    pattern="^(0|[1-9][0-9]*)$">
+                                <mat-icon
+                                    [ngStyle]="{'color':(quantityPhoenix.invalid && (quantityPhoenix.dirty || quantityPhoenix.touched)) ? 'red' : 'black' }"
+                                    matSuffix>add_shopping_cart</mat-icon>
+                                <mat-hint align="end">{{quantityPhoenix.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Quantité chez phoenix dépot</mat-hint>
+                                <mat-error
+                                *ngIf="((quantityPhoenix.invalid && (quantityPhoenix.dirty || quantityPhoenix.touched)) && quantityPhoenix.errors.required)"
+                                >
+                                    champs
+                                    requis
+                                </mat-error>
+                                <mat-error
+                                *ngIf="((quantityPhoenix.invalid && (quantityPhoenix.dirty || quantityPhoenix.touched)) && quantityPhoenix.errors.pattern)">
+                                format de la quantité est invalid
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <mat-card-actions class="create-product-button">
+                            <button color="primary" type="submit" mat-raised-button
+                                [disabled]="loading || !createProductForm.valid || (createProductForm.valid && isChecked && !isQuantityPhoenixValid())">CREER LE PRODUIT
+                            </button>
+                            <mat-progress-spinner *ngIf="loading" strokeWidth=5 diameter=50 [mode]="mode">
+                            </mat-progress-spinner>
+                        </mat-card-actions>
+                    </div>
+            </mat-card>
+        </form>
+    </div>
+</div>

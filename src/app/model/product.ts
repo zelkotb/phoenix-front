@@ -19,7 +19,7 @@ export class CreateProduct {
 	reference: string;
 	weight: number;
     date: string;
-	quantityPhoenix: number
+	operationQuantity: number
 }
 
 export class UpdateProduct {
@@ -35,4 +35,9 @@ export class UpdateProduct {
 export class UpdateQuantity {
 	quantity: number;
     date: string;
+	operation: Operation;
+}
+
+export enum Operation{
+	ALIMENTER, RETOURNER, FIN_SERIE
 }

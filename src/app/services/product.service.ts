@@ -128,7 +128,7 @@ export class ProductService {
   }
 
   deleteProduct(id: number){
-    let url = environment.host + '/api/products/';
+    let url = environment.host + '/api/products/'+id;
     return this.http.delete(url, this.httpOptions).pipe(
       catchError(
         err => {

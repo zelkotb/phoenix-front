@@ -2,7 +2,8 @@
     <div>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <mat-card class="register-card">
-                <mat-card-title class="register-title">Formulaire d'inscription</mat-card-title>
+                <mat-card-title *ngIf="type!='admin'" class="register-title">Formulaire d'inscription</mat-card-title>
+                <mat-card-title *ngIf="type =='admin'" class="register-title">Enregister un Back-Office</mat-card-title>
                 <div class="sub-form-design">
                     <div>
                         <a href="https://storyset.com/people" target="_blank"><img
@@ -12,7 +13,7 @@
                         <p class="d-flex justify-content-center">
                             <mat-form-field class="right-input" appearance="outline">
                                 <mat-label>Nom</mat-label>
-                                <input required formControlName="lastName" matInput placeholder="Placeholder">
+                                <input maxlength="50" required formControlName="lastName" matInput placeholder="Placeholder">
                                 <mat-icon
                                     [ngStyle]="{'color':(lastName.invalid && (lastName.dirty || lastName.touched)) ? 'red' : 'black' }"
                                     matSuffix>account_circle</mat-icon>
@@ -25,7 +26,7 @@
                             </mat-form-field>
                             <mat-form-field class="p-6" appearance="outline">
                                 <mat-label>Prénom</mat-label>
-                                <input required formControlName="firstName" matInput placeholder="Placeholder">
+                                <input maxlength="50" required formControlName="firstName" matInput placeholder="Placeholder">
                                 <mat-icon
                                     [ngStyle]="{'color':(firstName.invalid && (firstName.dirty || firstName.touched)) ? 'red' : 'black' }"
                                     matSuffix>account_circle</mat-icon>
@@ -40,7 +41,7 @@
                         <p class="d-flex justify-content-center">
                             <mat-form-field class="right-input" appearance="outline">
                                 <mat-label>Email</mat-label>
-                                <input required formControlName="email" matInput placeholder="Placeholder">
+                                <input maxlength="50" required formControlName="email" matInput placeholder="Placeholder">
                                 <mat-icon
                                     [ngStyle]="{'color':(email.invalid && (email.dirty || email.touched)) ? 'red' : 'black' }"
                                     matSuffix>
@@ -106,6 +107,9 @@
                                 <mat-error *ngIf="((tel.invalid && (tel.dirty || tel.touched)) && tel.errors.required)">
                                     champs
                                     requis
+                                </mat-error>
+                                <mat-error *ngIf="((tel.invalid && (tel.dirty || tel.touched)) && tel.errors.pattern)">
+                                    Numéro doit être 10 chiffres
                                 </mat-error>
                             </mat-form-field>
                         </p>

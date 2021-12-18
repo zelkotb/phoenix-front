@@ -50,7 +50,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.type != 'admin') {
-      this.loginService.logout();
+      if(this.loginService.isLoggedIn()){
+        this.routeAfterLogin(this.loginService.getId());
+      }
     }
   }
 
@@ -114,6 +116,15 @@ export class RegisterComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(DialogElementsExampleDialog);
+  }
+
+  routeAfterLogin(id: number) {
+    if (this.loginService.isAdmin()) {
+      this.router.navigate([environment.base + '/accounts']);
+    }
+    else if (this.loginService.isMerchant) {
+      this.router.navigate([environment.base + '/products/']);
+    }
   }
 }
 

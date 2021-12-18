@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.loginService.logout();
+    if(this.loginService.isLoggedIn()){
+      this.routeAfterLogin(this.loginService.getId());
+    }
   }
 
   get password() { return this.loginForm.get('password'); }
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate([environment.base + '/accounts']);
     }
     else if (this.loginService.isMerchant) {
-      this.router.navigate([environment.base + '/accounts/'+id]);
+      this.router.navigate([environment.base + '/products/']);
     }
   }
 

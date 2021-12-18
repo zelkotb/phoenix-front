@@ -9,7 +9,17 @@ export class ProductComponent implements OnInit {
 
   constructor() { }
 
+  selected : number;
+
   ngOnInit(): void {
+    let index = localStorage.getItem("tabndex");
+    if(index){
+      this.selected = Number(index);
+    }
+  }
+
+  saveIndex(event){
+    localStorage.setItem("tabndex",event.toString());
   }
 
 }

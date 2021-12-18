@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+}
+.table-container{
+    margin: 20px;
+}
+
+.actions-icon{
+    cursor: pointer;
+    margin-right: 7px;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.filter-div{
+  display: flex;
+}
+.backoffice-button{
+  margin-top: 20px;
+}
+.register-title{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: -15px;
+}
+.title{
+  position: relative;
+}

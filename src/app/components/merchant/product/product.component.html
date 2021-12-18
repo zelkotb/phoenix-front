@@ -1,7 +1,8 @@
-<mat-tab-group color="accent" mat-align-tabs="center">
-    <mat-tab label="Mon Stock">Content 1</mat-tab>
-    <mat-tab label="Phoenix Stock">Content 2</mat-tab>
-    <mat-tab label="Historique">Content 3</mat-tab>
-    <mat-tab label="Créer un Produit">Content 4</mat-tab>
-    <mat-tab label="Catégorie">Content 4</mat-tab>
+<mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="saveIndex($event)" color="accent" mat-align-tabs="center">
+    <mat-tab label="Mon Stock"><app-product-list></app-product-list></mat-tab>
+    <mat-tab label="Historique"><app-historique></app-historique></mat-tab>
+    <mat-tab label="Phoenix Stock"><app-product-list-phoenix></app-product-list-phoenix></mat-tab>
+    <mat-tab label="Historique Phoenix"><app-historique-phoenix></app-historique-phoenix></mat-tab>
+    <mat-tab label="Créer un Produit"><app-create-product></app-create-product></mat-tab>
+    <mat-tab label="Catégorie"><app-category></app-category></mat-tab>
 </mat-tab-group>

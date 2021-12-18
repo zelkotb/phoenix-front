@@ -1,0 +1,24 @@
+.create-category-card{
+    padding-left: 120px;
+    padding-right: 100px;
+    margin-top: 20px;
+}
+.create-category-container{
+    display: flex;
+    justify-content: center;
+    height: 600px;
+}
+.create-category-button{
+    display: flex;
+    justify-content: center;
+}
+.create-category-title{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    text-decoration: underline;
+    padding-top: 20px;
+}
+.sub-form-inputs{
+    margin-top: 50px;
+}
