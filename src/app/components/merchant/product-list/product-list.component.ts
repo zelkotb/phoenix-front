@@ -11,6 +11,7 @@ import {SnackBarFailureComponent} from '../../common/snack-bar-failure/snack-bar
 import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
 import { UpdateAccountComponent } from '../../update-account/update-account.component';
 import { UpdateProductComponent } from '../update-product/update-product.component';
+import { UpdateQuantityComponent } from '../update-quantity/update-quantity.component';
 
 @Component({
   selector: 'app-product-list',
@@ -116,6 +117,16 @@ export class ProductListComponent implements OnInit {
     this.dialog.open(UpdateProductComponent, {
       data: {
         id: id,
+      },
+    });
+  }
+
+  updateQuantityPopup(id){
+    this.dialog.open(UpdateQuantityComponent, {
+      data: {
+        id: id,
+        quantity: this.products.filter(p=>p.id==id).map(p=>p.quantity),
+        type: "local"
       },
     });
   }

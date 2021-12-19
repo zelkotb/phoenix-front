@@ -1,0 +1,42 @@
+<div class="update-product-container">
+    <div class="update-product-title">
+        <h1>Quantité dans le stock : {{data.quantity}}</h1>
+    </div>
+    <form [formGroup]="updateQuantityForm" (ngSubmit)="onSubmit()">
+        <div class="sub-form-inputs">
+            <p class="d-flex justify-content-center">
+                <mat-form-field class="p-6" appearance="outline">
+                    <mat-label>Quantité</mat-label>
+                    <input maxlength="50" required formControlName="quantity" matInput placeholder="Placeholder" pattern="^(0|[1-9][0-9]*)$">
+                    <mat-icon
+                        [ngStyle]="{'color':(quantity.invalid && (quantity.dirty || quantity.touched)) ? 'red' : 'black' }"
+                        matSuffix>add_shopping_cart</mat-icon>
+                    <mat-hint align="end">{{quantity.value?.length || 0}}/50</mat-hint>
+                    <mat-hint>* Quantité dans votre depot</mat-hint>
+                    <mat-error
+                        *ngIf="((quantity.invalid && (quantity.dirty || quantity.touched)) && quantity.errors.required)">
+                        champs
+                        requis
+                    </mat-error>
+                    <mat-error
+                    *ngIf="((quantity.invalid && (quantity.dirty || quantity.touched)) && quantity.errors.pattern)">
+                    format de la quantité est invalid
+                    </mat-error>
+                </mat-form-field>
+                <mat-radio-group
+                    formControlName="operation">
+                    <mat-radio-button *ngFor="let operation of operations" [value]="operation">
+                    {{operation}}
+                    </mat-radio-button>
+              </mat-radio-group>
+            </p>
+            <div class="spinner">
+                <button class="submit-button" color="primary" type="submit" mat-raised-button
+                [disabled]="loading || !updateQuantityForm.valid">MODIFIER LE PRODUIT
+                </button>
+                <mat-progress-spinner *ngIf="loading" strokeWidth=5 diameter=50 [mode]="mode">
+                </mat-progress-spinner>
+            </div>
+        </div>
+    </form>
+</div>

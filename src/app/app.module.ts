@@ -28,6 +28,7 @@ import { ProductListPhoenixComponent } from './components/merchant/product-list-
 import { HistoriqueComponent } from './components/merchant/historique/historique.component';
 import { HistoriquePhoenixComponent } from './components/merchant/historique-phoenix/historique-phoenix.component';
 import { UpdateProductComponent } from './components/merchant/update-product/update-product.component';
+import { UpdateQuantityComponent } from './components/merchant/update-quantity/update-quantity.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { UpdateProductComponent } from './components/merchant/update-product/upd
     ProductListPhoenixComponent,
     HistoriqueComponent,
     HistoriquePhoenixComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+    UpdateQuantityComponent
   ],
   imports: [
     BrowserModule,

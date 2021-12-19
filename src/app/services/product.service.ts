@@ -105,13 +105,21 @@ export class ProductService {
 }
 
 
-  updateQuantity(updateQuantity: UpdateQuantity, id: number){
-    let url = environment.host + '/api/products/quantity/';
+  updateQuantity(updateQuantity: UpdateQuantity, id: number,type: string){
+    let url;
+    if(type === "local"){
+      url = environment.host + '/api/products/quantity/'+id;
+    }else{
+      url = environment.host + '/api/products/quantity/phoenix/'+id;
+    }
     return this.http.put(url, updateQuantity, this.httpOptions).pipe(
       catchError(
         err => {
           if (err.error.httpStatusCode == 400 && err.error.responseMessage === "the quantity should be positive") {
             return throwError("La quantité doit étre positive");
+          }
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "the quantity to be retourned needs to be less than the store") {
+            return throwError("Quantité supérieur à celle du stock");
           }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");

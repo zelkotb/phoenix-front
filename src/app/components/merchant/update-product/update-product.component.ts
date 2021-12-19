@@ -111,4 +111,6 @@ export class UpdateProductComponent implements OnInit {
 
 export class UpdateProductData {
   id: number;
+  quantity: number;
+  type: string
 }
