@@ -54,7 +54,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Prix Unitaire en Dhs</mat-label>
-                    <input [ngModel]="product?.price" maxlength="50" required formControlName="price" matInput placeholder="Placeholder" 
+                    <input [ngModel]="product?.price" maxlength="50" formControlName="price" matInput placeholder="Placeholder" 
                     pattern="^\d+(,\d{1,2})?$">
                     <mat-icon
                         [ngStyle]="{'color':(price.invalid && (price.dirty || price.touched)) ? 'red' : 'black' }"

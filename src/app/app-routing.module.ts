@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { MerchantGuard } from './guards/merchant.guard';
+import { DocumentListComponent } from './components/admin/document-list/document-list.component';
 
 import { UpdateAccountComponent } from './components/update-account/update-account.component';
 import { ProductComponent } from './components/merchant/product/product.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
   },
   {
     path: environment.base + 'register/backoffice', component: RegisterBackOfficeComponent
+    , canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: environment.base + 'documents', component: DocumentListComponent
     , canActivate: [AuthGuard, AdminGuard]
   },
   {

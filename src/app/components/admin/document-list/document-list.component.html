@@ -1,0 +1,95 @@
+<div class="container" *ngIf="!loading">
+    <h4 style="margin-left: 10px;"
+    >Pas de document pour le moment...</h4>
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel *ngFor="let document of documents; let i=index" (opened)="onOpened(document)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{document.id}}
+        </mat-panel-title>
+        <mat-panel-description style="color: black;">
+          {{document.email}}
+          <e>{{document.type=="ALIMENTER"? "ALIMENTATION":"RETOUR"}}</e>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection?.hasValue() && isAllSelected()"
+                              [indeterminate]="selection?.hasValue() && !isAllSelected()"
+                              [aria-label]="checkboxLabel()"
+                              color="primary">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection?.toggle(row) : null"
+                              [checked]="selection?.isSelected(row)"
+                              [aria-label]="checkboxLabel(row)"
+                              color="primary">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="reference">
+              <th mat-header-cell *matHeaderCellDef> RÉFÉRENCE </th>
+              <td mat-cell *matCellDef="let element"> {{element.reference}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> NOM </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef> QUANTITÉ </th>
+              <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+          
+              <!-- Symbol Column -->
+            <ng-container matColumnDef="operation">
+              <th mat-header-cell *matHeaderCellDef> OPÉRATION </th>
+              <td mat-cell *matCellDef="let element"> {{element.operation}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> STATUS </th>
+              <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef> DATE </th>
+              <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                (click)="selection.toggle(row)">
+            </tr>
+          </table>
+        </div>
+        <div class="button-container">
+            <button [disabled]="!isAllSelected()" (click)="validate(document, true)" class="validate-button" color="primary" mat-raised-button>
+                <span class="aligned-with-icon">Valider le Bon de
+                    <e *ngIf="document.type=='ALIMENTER'"> Livraison</e>
+                    <e *ngIf="document.type=='RETOURNER'"> Retour</e></span>
+            </button>
+            <button [disabled]="isAllSelected()" (click)="validate(document, false)" class="reject-button" color="primary" mat-raised-button>
+                <span class="aligned-with-icon">Rejeter le Bon de
+                    <e *ngIf="document.type=='ALIMENTER'"> Livraison</e>
+                    <e *ngIf="document.type=='RETOURNER'"> Retour</e></span>
+            </button>
+        </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="table-container" *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>

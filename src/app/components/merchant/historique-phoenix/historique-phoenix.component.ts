@@ -8,6 +8,7 @@ import { HistoryService } from 'src/app/services/history.service';
 import { SnackBarFailureComponent } from '../../common/snack-bar-failure/snack-bar-failure.component';
 import { SnackBarSuccessComponent } from '../../common/snack-bar-success/snack-bar-success.component';
 import { History} from '../../../model/history';
+import { GenerateDocumentComponent } from '../generate-document/generate-document.component';
 
 
 @Component({
@@ -17,10 +18,11 @@ import { History} from '../../../model/history';
 })
 export class HistoriquePhoenixComponent implements OnInit {
 
-  loading: boolean;
+  loading: boolean; 
   displayedColumns: string[] = [
     'id',
     'reference',
+    'name',
     'quantity',
     'operation',
     'status',
@@ -103,6 +105,10 @@ export class HistoriquePhoenixComponent implements OnInit {
 
   deleteProduct(row){
     console.log(row);
+  }
+
+  openGenerateDocPopup(){
+    this.dialog.open(GenerateDocumentComponent);
   }
 
 }

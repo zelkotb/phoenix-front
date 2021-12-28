@@ -29,6 +29,9 @@ import { HistoriqueComponent } from './components/merchant/historique/historique
 import { HistoriquePhoenixComponent } from './components/merchant/historique-phoenix/historique-phoenix.component';
 import { UpdateProductComponent } from './components/merchant/update-product/update-product.component';
 import { UpdateQuantityComponent } from './components/merchant/update-quantity/update-quantity.component';
+import { GenerateDocumentComponent } from './components/merchant/generate-document/generate-document.component';
+import { DelivaryNoteComponent } from './components/merchant/note/delivary-note/delivary-note.component';
+import { DocumentListComponent } from './components/admin/document-list/document-list.component';
 
 
 @NgModule({
@@ -53,7 +56,10 @@ import { UpdateQuantityComponent } from './components/merchant/update-quantity/u
     HistoriqueComponent,
     HistoriquePhoenixComponent,
     UpdateProductComponent,
-    UpdateQuantityComponent
+    UpdateQuantityComponent,
+    GenerateDocumentComponent,
+    DelivaryNoteComponent,
+    DocumentListComponent
   ],
   imports: [
     BrowserModule,

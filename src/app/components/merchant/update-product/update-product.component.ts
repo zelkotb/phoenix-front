@@ -25,7 +25,7 @@ export class UpdateProductComponent implements OnInit {
     name: new FormControl('', Validators.required),
     reference: new FormControl('', Validators.required),
     description: new FormControl(''),
-    price: new FormControl('', [Validators.required]),
+    price: new FormControl(''),
     weight: new FormControl('', [Validators.required]),
     category: new FormControl(''),
   });
@@ -41,6 +41,8 @@ export class UpdateProductComponent implements OnInit {
     this.loading = true;
     this.productService.getProduct(this.data.id).subscribe(
       result => {
+        result.price = result.price.toString().replace(".",",");
+        result.weight = result.weight.toString().replace(".",",");
         this.product = result;
         this.loading = false;
       },
@@ -74,14 +76,14 @@ export class UpdateProductComponent implements OnInit {
     this.updateProduct.name = this.name.value;
     this.updateProduct.reference = this.reference.value;
     this.updateProduct.description = this.description.value;
-    this.updateProduct.price = +this.price.value;
-    this.updateProduct.weight = +this.weight.value;
+    this.updateProduct.price = parseFloat(this.price.value.replace(",","."));
+    this.updateProduct.weight = parseFloat(this.weight.value.replace(",","."));
     if(this.category.value != undefined && this.category.value != ''){
       this.updateProduct.category = this.category.value;
     }
     this.productService.updateProduct(this.updateProduct, this.data.id).subscribe(
       result => {
-        setTimeout(function(){location.reload()}, 2000);
+        setTimeout(function(){location.reload()}, 1000);
         this.openSnackBarSuccess("Produit modifié avec succès");
       },
       error => {

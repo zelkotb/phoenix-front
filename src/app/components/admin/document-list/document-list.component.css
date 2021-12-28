@@ -1,0 +1,39 @@
+.example-action-buttons {
+    padding-bottom: 20px;
+}
+  
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+}
+
+.container{
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+
+}
+.validate-button{
+    margin-top: 20px;
+}
+.button-container{
+    display: flex;
+    justify-content: center;
+}
+.reject-button{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+  

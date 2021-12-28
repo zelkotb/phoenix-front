@@ -34,7 +34,7 @@ export class CategoryComponent implements OnInit {
     
     this.categoryService.createCategory(this.category).subscribe(
       result => {
-        setTimeout(function(){location.reload()}, 2000);
+        setTimeout(function(){location.reload()}, 1000);
         this.openSnackBarSuccess("Categorie créé avec succès")
       },
       error => {

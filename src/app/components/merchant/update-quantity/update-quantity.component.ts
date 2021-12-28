@@ -51,7 +51,7 @@ export class UpdateQuantityComponent implements OnInit {
     }
     this.productService.updateQuantity(this.updateQuantity,this.data.id,this.data.type).subscribe(
       result => {
-        setTimeout(function(){location.reload()}, 2000);
+        setTimeout(function(){location.reload()}, 1000);
         this.openSnackBarSuccess("Quantité modifié avec succès")
       },
       error => {

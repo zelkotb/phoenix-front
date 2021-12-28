@@ -23,7 +23,7 @@ export class CreateProductComponent implements OnInit {
     name: new FormControl('', Validators.required),
     reference: new FormControl('', Validators.required),
     description: new FormControl(''),
-    price: new FormControl('', [Validators.required]),
+    price: new FormControl(''),
     weight: new FormControl('', [Validators.required]),
     quantity: new FormControl('', [Validators.required]),
     category: new FormControl(''),
@@ -69,8 +69,12 @@ export class CreateProductComponent implements OnInit {
     this.createProduct.name = this.name.value;
     this.createProduct.reference = this.reference.value;
     this.createProduct.description = this.description.value;
-    this.createProduct.price = +this.price.value;
-    this.createProduct.weight = +this.weight.value;
+    if(this.price.value === undefined){
+      this.createProduct.price = 0;
+    }else{
+      this.createProduct.price = parseFloat(this.price.value.replace(",",".") );
+    }
+    this.createProduct.weight = parseFloat(this.weight.value.replace(",",".") );
     this.createProduct.quantity = +this.quantity.value;
     this.createProduct.date = this.datepipe.transform(new Date(), 'dd-MM-yyyy HH:mm').toString();
     if(this.category.value != undefined && this.category.value != ''){
@@ -79,7 +83,7 @@ export class CreateProductComponent implements OnInit {
     
     this.productService.createProduct(this.createProduct).subscribe(
       result => {
-        setTimeout(function(){location.reload()}, 2000);
+        setTimeout(function(){location.reload()}, 1000);
         this.openSnackBarSuccess("Produit créé avec succès")
       },
       error => {

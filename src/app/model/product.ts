@@ -4,9 +4,9 @@ export class Product {
 	description: string;
 	quantity: number;
 	category: string;
-	price: number;
+	price: string;
 	reference: string;
-	weight: number;
+	weight: string;
 	quantityPhoenix: number;
 }
 

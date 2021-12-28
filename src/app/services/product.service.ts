@@ -116,7 +116,7 @@ export class ProductService {
       catchError(
         err => {
           if (err.error.httpStatusCode == 400 && err.error.responseMessage === "the quantity should be positive") {
-            return throwError("La quantité doit étre positive");
+            return throwError("La quantité doit être positive");
           }
           if (err.error.httpStatusCode == 400 && err.error.responseMessage === "the quantity to be retourned needs to be less than the store") {
             return throwError("Quantité supérieur à celle du stock");
@@ -140,6 +140,9 @@ export class ProductService {
     return this.http.delete(url, this.httpOptions).pipe(
       catchError(
         err => {
+          if (err.error.httpStatusCode == 400 && err.error.responseMessage === "You cannot delete a product with quantoty > 0") {
+            return throwError("La quantité chez phoenix doit être 0");
+          }
           if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");
           }

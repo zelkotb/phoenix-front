@@ -20,6 +20,7 @@ export class HistoriqueComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'reference',
+    'name',
     'quantity',
     'operation',
     'date'

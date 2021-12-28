@@ -1,8 +1,9 @@
 export class History {
-    id: string;
+    id: number;
     operation: Operation;
     quantity: number;
     reference: string;
+    name: string;
     date: string;
     status: Status;
 }

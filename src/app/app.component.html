@@ -39,8 +39,16 @@
             *ngIf="loginService.isAdmin()"
             routerLink="{{baseUrl}}accounts"
             >
-                <mat-icon class="mat-icon">star</mat-icon>
+                <mat-icon class="mat-icon">assignment_ind</mat-icon>
                 <span class="aligned-with-icon-new">Gestion des Comptes</span>
+            </li>
+            <li 
+            [class.active-item]="isActive('documents',true)" 
+            *ngIf="loginService.isAdmin()"
+            routerLink="{{baseUrl}}documents"
+            >
+                <mat-icon class="mat-icon">assignment</mat-icon>
+                <span class="aligned-with-icon-new">Gestion des Bons</span>
             </li>
             <li 
             [class.active-item]="isActive('products',true)" 
