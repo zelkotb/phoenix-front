@@ -25,10 +25,10 @@ export class DocumentService {
       catchError(
         err => {
           if (err.error.httpStatusCode == 400 && err.error.responseMessage === "only on hold status is accepted") {
-            return throwError("status doit etre en attente");
+            return throwError("status doit être en attente, refreshir la page");
           }
           else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "status must match the provided type") {
-            return throwError("type envoié doit étre le meme avec celui de l'opération");
+            return throwError("type envoié doit être le meme avec celui de l'opération");
           }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");

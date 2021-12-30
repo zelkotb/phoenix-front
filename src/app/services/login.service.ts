@@ -81,6 +81,13 @@ export class LoginService {
     }
   }
 
+  getEmail(): string{
+    var email: string = localStorage.getItem('email');
+    if(email != undefined && email != null && email != ""){
+      return email;
+    }
+  }
+
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);

@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class AccountTable {}\nexport class Account {}\nexport class UpdateAccountRequest {}\nexport class UpdateAccountResponse {}\nexport class GetAccountResponse {}\nexport class ChangePasswordRequest {}\nexport class ForgetPasswordRequest {}","map":null,"metadata":{},"sourceType":"module"}
