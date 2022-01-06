@@ -149,7 +149,7 @@ checkboxLabel(row?: History): string {
       result => {
         this.loading = false;
         this.dialogRef.close();
-        this.createPage();
+        this.createPage(Number(result));
       },
       error => {
         this.loading = false;
@@ -163,7 +163,7 @@ checkboxLabel(row?: History): string {
     return this.operation.toString() == "RETOURNER";
   }
 
-  createPage(){
+  createPage(id: number){
     var doc = new jsPDF('p', 'mm', 'a4');
 
         // logo
@@ -201,8 +201,8 @@ checkboxLabel(row?: History): string {
         //bon info title
         doc.setFont('helvetica','bold')
         doc.text(this.isReturn()
-        ? 'Bon De Retour N°: '+4444
-        : 'Bon De Livraison N°: '+3333
+        ? 'Bon De Retour N°: '+id
+        : 'Bon De Livraison N°: '+id
         ,100, 70);
 
         //bon info
@@ -214,257 +214,68 @@ checkboxLabel(row?: History): string {
         doc.text("Email du Client: "+this.loginService.getEmail()
         ,100, 83);
 
-        if(this.data.length<=15){
+        //first page
+        let end = this.data.length>15? 15 : this.data.length
           doc.table(10,100,
-            this.data,
+            this.data.slice(0,end),
             this.cellConfig,
           {
             headerBackgroundColor: "#F6B853",
             fontSize: 11,
           });
-          doc.setFont('helvetica','bold');
-          doc.text("Signature"
-          ,20, 280);
-          doc.text("Signature"
-          ,130, 280);
-          doc.setFont('courier','normal')
-          doc.text("Représentant Phoenix: ........"
-          ,20, 284);
-          doc.text("Client: ........"
-          ,130, 284);
-        }
-        else if(this.data.length>15 && this.data.length<=30){
-          doc.table(10,100,
-            this.data.slice(0,15),
-            this.cellConfig,
-          {
-            headerBackgroundColor: "#F6B853",
-            fontSize: 11,
-          });
-          doc.text("Page: 1/2"
-          ,160, 290);
-          doc.addPage()
+        this.data = this.data.slice(end,this.data.length);
+        if(this.data.length != 0){
+          let pages = Math.floor(this.data.length/20)+1;
+          for(let i =0; i<pages; i++){
+            doc.text("Page: "+(i+1)+"/"+(pages+1)
+            ,160, 290);
+            doc.addPage()
 
-          doc.addImage(img,'png',150, 10, 60, 40);
+            doc.addImage(img,'png',150, 10, 60, 40);
 
-          //title
-          doc.setFont('courier','bold')
-          doc.setFontSize(32);
-          doc.text(this.isReturn()
-          ? 'Bon De Retour'
-          : 'Bon De Livraison'
-          ,20, 30);
+            //title
+            doc.setFont('courier','bold')
+            doc.setFontSize(32);
+            doc.text(this.isReturn()
+            ? 'Bon De Retour'
+            : 'Bon De Livraison'
+            ,20, 30);
 
-          //separation line
-          doc.setLineWidth(0.5);
-          doc.line(10, 50, 200, 50);
+            //separation line
+            doc.setLineWidth(0.5);
+            doc.line(10, 50, 200, 50);
 
-          //phoenix info title
-          doc.setFont('helvetica','bold')
-          doc.setFontSize(11);
-          doc.text("PHOENIX FULFILLMENT"
-          ,20, 70);
+            end = this.data.length>20? 20 : this.data.length
 
-          //phoenix info
-          doc.setFont('courier','normal')
-          doc.text("14° Avenue Hassan 2"
-          ,20, 75);
-          doc.text("22000 Casablanca Maroc"
-          ,20, 79);
-          doc.text("Téléphone: +212 606416930"
-          ,20, 83);
-
-          //bon info title
-          doc.setFont('helvetica','bold')
-          doc.text(this.isReturn()
-          ? 'Bon De Retour N°: '+4444
-          : 'Bon De Livraison N°: '+3333
-          ,100, 70);
-
-          //bon info
-          doc.setFont('courier','normal')
-          doc.text("Date d'extraction: "+this.datepipe.transform(new Date(), 'dd-MM-yyyy HH:mm').toString()
-          ,100, 75);
-          doc.text("Lieu: Maroc"
-          ,100, 79);
-          doc.text("Email du Client: "+this.loginService.getEmail()
-          ,100, 83);
-
-          doc.table(10,100,
-            this.data.slice(15,this.data.length),
-            this.cellConfig,
-          {
-            headerBackgroundColor: "#F6B853",
-            fontSize: 11,
-          });
-
-          doc.setFont('helvetica','bold');
-          doc.text("Signature"
-          ,20, 280);
-          doc.text("Signature"
-          ,130, 280);
-          doc.setFont('courier','normal')
-          doc.text("Représentant Phoenix: ........"
-          ,20, 284);
-          doc.text("Client: ........"
-          ,130, 284);
-          doc.text("Page: 2/2"
+            doc.table(10,60,
+              this.data.slice(0,end),
+              this.cellConfig,
+            {
+              headerBackgroundColor: "#F6B853",
+              fontSize: 11,
+            });
+            this.data = this.data.slice(end,this.data.length);
+          }
+          doc.text("Page: "+(pages+1)+"/"+(pages+1)
           ,160, 290);
         }
-        else if(this.data.length>30 && this.data.length<=45){
-          doc.table(10,100,
-            this.data.slice(0,15),
-            this.cellConfig,
-          {
-            headerBackgroundColor: "#F6B853",
-            fontSize: 11,
-          });
-          doc.text("Page: 1/3"
-          ,160, 290);
-          doc.addPage()
 
-          doc.addImage(img,'png',150, 10, 60, 40);
-
-          //title
-          doc.setFont('courier','bold')
-          doc.setFontSize(32);
-          doc.text(this.isReturn()
-          ? 'Bon De Retour'
-          : 'Bon De Livraison'
-          ,20, 30);
-
-          //separation line
-          doc.setLineWidth(0.5);
-          doc.line(10, 50, 200, 50);
-
-          //phoenix info title
-          doc.setFont('helvetica','bold')
-          doc.setFontSize(11);
-          doc.text("PHOENIX FULFILLMENT"
-          ,20, 70);
-
-          //phoenix info
-          doc.setFont('courier','normal')
-          doc.text("14° Avenue Hassan 2"
-          ,20, 75);
-          doc.text("22000 Casablanca Maroc"
-          ,20, 79);
-          doc.text("Téléphone: +212 606416930"
-          ,20, 83);
-
-          //bon info title
-          doc.setFont('helvetica','bold')
-          doc.text(this.isReturn()
-          ? 'Bon De Retour N°: '+4444
-          : 'Bon De Livraison N°: '+3333
-          ,100, 70);
-
-          //bon info
-          doc.setFont('courier','normal')
-          doc.text("Date d'extraction: "+this.datepipe.transform(new Date(), 'dd-MM-yyyy HH:mm').toString()
-          ,100, 75);
-          doc.text("Lieu: Maroc"
-          ,100, 79);
-          doc.text("Email du Client: "+this.loginService.getEmail()
-          ,100, 83);
-
-          doc.table(10,100,
-            this.data.slice(15,30),
-            this.cellConfig,
-          {
-            headerBackgroundColor: "#F6B853",
-            fontSize: 11,
-          });
-
-          doc.text("Page: 2/3"
-          ,160, 290);
-          doc.addPage()
-
-          doc.addImage(img,'png',150, 10, 60, 40);
-
-          //title
-          doc.setFont('courier','bold')
-          doc.setFontSize(32);
-          doc.text(this.isReturn()
-          ? 'Bon De Retour'
-          : 'Bon De Livraison'
-          ,20, 30);
-
-          //separation line
-          doc.setLineWidth(0.5);
-          doc.line(10, 50, 200, 50);
-
-          //phoenix info title
-          doc.setFont('helvetica','bold')
-          doc.setFontSize(11);
-          doc.text("PHOENIX FULFILLMENT"
-          ,20, 70);
-
-          //phoenix info
-          doc.setFont('courier','normal')
-          doc.text("14° Avenue Hassan 2"
-          ,20, 75);
-          doc.text("22000 Casablanca Maroc"
-          ,20, 79);
-          doc.text("Téléphone: +212 606416930"
-          ,20, 83);
-
-          //bon info title
-          doc.setFont('helvetica','bold')
-          doc.text(this.isReturn()
-          ? 'Bon De Retour N°: '+4444
-          : 'Bon De Livraison N°: '+3333
-          ,100, 70);
-
-          //bon info
-          doc.setFont('courier','normal')
-          doc.text("Date d'extraction: "+this.datepipe.transform(new Date(), 'dd-MM-yyyy HH:mm').toString()
-          ,100, 75);
-          doc.text("Lieu: Maroc"
-          ,100, 79);
-          doc.text("Email du Client: "+this.loginService.getEmail()
-          ,100, 83);
-
-          doc.table(10,100,
-            this.data.slice(30,this.data.length),
-            this.cellConfig,
-          {
-            headerBackgroundColor: "#F6B853",
-            fontSize: 11,
-          });
-
-          doc.setFont('helvetica','bold');
-          doc.text("Signature"
-          ,20, 280);
-          doc.text("Signature"
-          ,130, 280);
-          doc.setFont('courier','normal')
-          doc.text("Représentant Phoenix: ........"
-          ,20, 284);
-          doc.text("Client: ........"
-          ,130, 284);
-          doc.text("Page: 3/3"
-          ,160, 290);
-        }
-        else{
-          doc.table(10,100,
-            this.data,
-            this.cellConfig,
-          {
-            headerBackgroundColor: "#F6B853",
-            fontSize: 11,
-          });
-          doc.setFont('helvetica','bold');
-          doc.text("Signature"
-          ,20, 280);
-          doc.text("Signature"
-          ,130, 280);
-          doc.setFont('courier','normal')
-        }
-
+        // Signature
+        doc.setFont('helvetica','bold');
+        doc.text("Signature"
+        ,20, 280);
+        doc.text("Signature"
+        ,130, 280);
+        doc.setFont('courier','normal')
+        doc.text("Représentant Phoenix: ........"
+        ,20, 284);
+        doc.text("Client: ........"
+        ,130, 284);
 
         // Save the PDF
-        doc.save('Test.pdf');
+        doc.save(this.isReturn()
+        ? 'Bon_De_Retour_N°_'+id+'.pdf'
+        : 'Bon_De_Livraison_N°_'+id+'.pdf');
   }
 
 }

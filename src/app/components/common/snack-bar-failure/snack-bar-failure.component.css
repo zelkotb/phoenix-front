@@ -1,10 +1,11 @@
 .snack-bar{
     display: flex;
-}
-.dismiss{
-    margin-left: 30px;
-    justify-content: center;
+    justify-content: space-between;
+    width: max-content;
 }
 .data{
     margin-top: 10px;
+}
+.dismiss{
+    margin-left: 20px;
 }

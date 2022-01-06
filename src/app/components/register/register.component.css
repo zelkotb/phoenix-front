@@ -32,3 +32,8 @@
 .sub-form-inputs{
     margin-top: 50px;
 }
+.icon{
+    position: absolute;
+    top: 86%;
+    left: 86%;
+}

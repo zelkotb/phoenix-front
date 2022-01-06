@@ -17,4 +17,11 @@ export class DocumentResponse {
 export class ValidateDocumentRequest{
     validate: boolean;
     id: Login;
+    date: string;
+}
+
+export class DocumentHistory {
+    id: string;
+    type: Operation;
+    date: string;
 }

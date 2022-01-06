@@ -8,6 +8,7 @@ import { DocumentService } from 'src/app/services/document.service';
 import { SnackBarFailureComponent } from '../../common/snack-bar-failure/snack-bar-failure.component';
 import { History } from '../../../model/history';
 import { SnackBarSuccessComponent } from '../../common/snack-bar-success/snack-bar-success.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-document-list',
@@ -17,7 +18,7 @@ import { SnackBarSuccessComponent } from '../../common/snack-bar-success/snack-b
 export class DocumentListComponent implements OnInit {
 
   loading : boolean;
-  documents: DocumentResponse[];
+  documents: DocumentResponse[] = [];
   @ViewChild(MatAccordion) accordion: MatAccordion;
   displayedColumns: string[] = [
     'select',
@@ -34,6 +35,7 @@ export class DocumentListComponent implements OnInit {
   constructor(
     private documentService: DocumentService,
     private _snackBar: MatSnackBar,
+    public datepipe: DatePipe,
     ){ }
 
   ngOnInit(): void {
@@ -48,6 +50,10 @@ export class DocumentListComponent implements OnInit {
         this.loading = false;
       }
     )
+  }
+
+  isEmpty(){
+    return this.documents?.length == 0;
   }
 
   openSnackBarFailure(message: string) {
@@ -98,6 +104,7 @@ onOpened(document: DocumentResponse){
 validate(document,valide){
   this.validateDocumentRequest.id = document.id;
   this.validateDocumentRequest.validate = valide;
+  this.validateDocumentRequest.date = this.datepipe.transform(new Date(), 'dd-MM-yyyy HH:mm').toString();
   this.documentService.validateDocument(this.validateDocumentRequest).subscribe(
     result => {
       let index = this.documents.indexOf(document);

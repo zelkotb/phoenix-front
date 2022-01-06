@@ -32,6 +32,9 @@ import { UpdateQuantityComponent } from './components/merchant/update-quantity/u
 import { GenerateDocumentComponent } from './components/merchant/generate-document/generate-document.component';
 import { DelivaryNoteComponent } from './components/merchant/note/delivary-note/delivary-note.component';
 import { DocumentListComponent } from './components/admin/document-list/document-list.component';
+import { DocumentHistoryComponent } from './components/merchant/document-history/document-history.component';
+import { CreateOrderComponent } from './components/merchant/order/create-order/create-order.component';
+import { OrderComponent } from './components/merchant/order/order/order.component';
 
 
 @NgModule({
@@ -59,7 +62,10 @@ import { DocumentListComponent } from './components/admin/document-list/document
     UpdateQuantityComponent,
     GenerateDocumentComponent,
     DelivaryNoteComponent,
-    DocumentListComponent
+    DocumentListComponent,
+    DocumentHistoryComponent,
+    CreateOrderComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

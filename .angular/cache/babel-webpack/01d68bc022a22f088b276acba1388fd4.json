@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Document {}\nexport class DocumentResponse {}\nexport class ValidateDocumentRequest {}\nexport class DocumentHistory {}","map":null,"metadata":{},"sourceType":"module"}

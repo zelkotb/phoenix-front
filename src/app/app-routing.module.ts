@@ -12,6 +12,7 @@ import { DocumentListComponent } from './components/admin/document-list/document
 
 import { UpdateAccountComponent } from './components/update-account/update-account.component';
 import { ProductComponent } from './components/merchant/product/product.component';
+import { OrderComponent } from './components/merchant/order/order/order.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/' + environment.base + 'login', pathMatch: 'full' },
@@ -35,6 +36,10 @@ const routes: Routes = [
   },
   {
     path: environment.base + 'products', component: ProductComponent
+    , canActivate: [AuthGuard, MerchantGuard]
+  },
+  {
+    path: environment.base + 'orders', component: OrderComponent
     , canActivate: [AuthGuard, MerchantGuard]
   },
 ];

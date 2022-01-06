@@ -99,8 +99,4 @@ export class HistoriqueComponent implements OnInit {
     });
   }
 
-  deleteProduct(row){
-    console.log(row);
-  }
-
 }

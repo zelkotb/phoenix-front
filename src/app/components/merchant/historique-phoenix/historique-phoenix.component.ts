@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { HistoryService } from 'src/app/services/history.service';
 import { SnackBarFailureComponent } from '../../common/snack-bar-failure/snack-bar-failure.component';
@@ -46,6 +46,11 @@ export class HistoriquePhoenixComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.historiesPhoenix);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.dataSource.sort.sort(<MatSortable>{
+          id: 'id',
+          start: 'desc'
+        }
+        );
         this.loading = false;
       },
       error => {
@@ -101,10 +106,6 @@ export class HistoriquePhoenixComponent implements OnInit {
       panelClass: 'app-snack-bar-failure',
       duration: 5000
     });
-  }
-
-  deleteProduct(row){
-    console.log(row);
   }
 
   openGenerateDocPopup(){

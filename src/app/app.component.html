@@ -59,6 +59,14 @@
                 <span class="aligned-with-icon-new">Produits</span>
             </li>
             <li 
+            [class.active-item]="isActive('orders',true)" 
+            *ngIf="loginService.isMerchant()"
+            routerLink="{{baseUrl}}orders"
+            >
+                <mat-icon class="mat-icon">shopping_cart</mat-icon>
+                <span class="aligned-with-icon-new">Commandes</span>
+            </li>
+            <li 
             [class.active-item]="isActiveWithId('accounts/',true)" 
             *ngIf="loginService.isLoggedIn()"
             (click)="goToProfile()"

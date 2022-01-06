@@ -68,6 +68,12 @@ export class ProductService {
           else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "the quantity should be positive") {
             return throwError("La quantité doit étre positive");
           }
+          else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "product name should be unique") {
+            return throwError("Le nom du produit doit étre unique");
+          }
+          else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "product name should not contain ','") {
+            return throwError("Le nom du produit ne doit pas contenir ','");
+          }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");
           }
@@ -89,6 +95,12 @@ export class ProductService {
       err => {
         if (err.error.httpStatusCode == 400 && err.error.responseMessage === "Category Name is incorrect") {
           return throwError("Le nom du category fourni n'existe pas");
+        }
+        else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "product name should be unique") {
+          return throwError("Le nom du produit doit étre unique");
+        }
+        else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "product name should not contain ','") {
+          return throwError("Le nom du produit ne doit pas contenir ','");
         }
         else if (err.error.httpStatusCode == 400) {
           return throwError("un paramètre incorrect");
