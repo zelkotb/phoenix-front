@@ -22,6 +22,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatSortModule,
         MatDialogModule,
         MatSlideToggleModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatDatepickerModule,
+        MatAutocompleteModule
     ],
     exports: [
         MatTabsModule,
@@ -73,7 +77,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatSortModule,
         MatDialogModule,
         MatSlideToggleModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatDatepickerModule,
+        MatAutocompleteModule
     ]
 })
 export class MaterialModule { }

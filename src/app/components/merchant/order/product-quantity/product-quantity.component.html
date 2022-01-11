@@ -1,0 +1,42 @@
+<h1 class="title" mat-dialog-title>Ajouter les quantités pour chanque produit</h1>
+<div class="product-quantity-title">
+    <h3>Mon Stock</h3>
+    <h3>Phoenix Stock</h3>
+</div>
+<div>
+    <mat-dialog-content class="mat-typography">
+        <div class="product-quantity" mat-dialog-content *ngFor="let productQuantity of data; index as i">
+            <mat-form-field appearance="outline">
+                <mat-label>{{productQuantity.product}}</mat-label>
+                <input pattern="^(?:(?:[1-9][0-9]*)|0)$" [formControl]="form.controls[i]" [(ngModel)]="productQuantity.quantity" matInput>
+                <mat-icon matSuffix>add_shopping_cart</mat-icon>
+                <mat-hint>* Quantité de votre stock</mat-hint>
+                <mat-error *ngIf="((form.controls[i].invalid && (form.controls[i].dirty || form.controls[i].touched)) && form.controls[i].errors.required)">
+                    champs
+                    requis
+                </mat-error>
+                <mat-error *ngIf="((form.controls[i].invalid && (form.controls[i].dirty || form.controls[i].touched)) && form.controls[i].errors.pattern)">
+                    Seulement des chiffres,si numéro no commence pas par 0
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>{{productQuantity.product}}</mat-label>
+                <input pattern="^(?:(?:[1-9][0-9]*)|0)$"  [formControl]="form2.controls[i]" [(ngModel)]="productQuantity.quantityPhoenix" matInput>
+                <mat-icon matSuffix>add_shopping_cart</mat-icon>
+                <mat-hint>* Quantité du stock chez Phoenix</mat-hint>
+                <mat-error *ngIf="((form2.controls[i].invalid && (form2.controls[i].dirty || form2.controls[i].touched)) && form2.controls[i].errors.required)">
+                    champs
+                    requis
+                </mat-error>
+                <mat-error *ngIf="((form2.controls[i].invalid && (form2.controls[i].dirty || form2.controls[i].touched)) && form2.controls[i].errors.pattern)">
+                    Seulement des chiffres,si numéro no commence pas par 0
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <div mat-dialog-actions>
+      <button color="primary" class="validate-button" mat-flat-button 
+      [mat-dialog-close]="data" cdkFocusInitial
+      [disabled]="!form.valid || !form2.valid || !isValid()">Validé</button>
+    </div>
+</div>

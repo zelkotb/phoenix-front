@@ -51,7 +51,7 @@
                                 <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
                                 </mat-select>
                                 <mat-hint>* Catégory du produit</mat-hint>
-                              </mat-form-field>
+                            </mat-form-field>
                             <mat-form-field class="p-6" appearance="outline">
                                 <mat-label>Quantité</mat-label>
                                 <input maxlength="50" required formControlName="quantity" matInput placeholder="Placeholder" pattern="^(0|[1-9][0-9]*)$">

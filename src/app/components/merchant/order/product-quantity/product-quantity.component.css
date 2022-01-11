@@ -1,0 +1,26 @@
+.product-quantity{
+    display: flex;
+    justify-content: center;
+}
+.title{
+    display: flex;
+    justify-content: center;
+}
+mat-form-field{
+    width: 50%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.validate-button{
+    width: 100%;
+}
+.product-quantity-title{
+    display: flex;
+    justify-content: center;
+}
+h3{
+    width: 50%;
+    margin-left: 20px;
+    margin-right: 20px;;
+}

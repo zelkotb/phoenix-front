@@ -66,10 +66,10 @@ export class ProductService {
             return throwError("Le nom du category fourni n'existe pas");
           }
           else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "the quantity should be positive") {
-            return throwError("La quantité doit étre positive");
+            return throwError("La quantité doit être positive");
           }
           else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "product name should be unique") {
-            return throwError("Le nom du produit doit étre unique");
+            return throwError("Le nom du produit doit être unique");
           }
           else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "product name should not contain ','") {
             return throwError("Le nom du produit ne doit pas contenir ','");

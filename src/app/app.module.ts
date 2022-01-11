@@ -35,6 +35,11 @@ import { DocumentListComponent } from './components/admin/document-list/document
 import { DocumentHistoryComponent } from './components/merchant/document-history/document-history.component';
 import { CreateOrderComponent } from './components/merchant/order/create-order/create-order.component';
 import { OrderComponent } from './components/merchant/order/order/order.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ProductQuantityComponent } from './components/merchant/order/product-quantity/product-quantity.component';
+import { ConfirmOrderComponent } from './components/merchant/order/confirm-order/confirm-order.component';
 
 
 @NgModule({
@@ -65,7 +70,9 @@ import { OrderComponent } from './components/merchant/order/order/order.componen
     DocumentListComponent,
     DocumentHistoryComponent,
     CreateOrderComponent,
-    OrderComponent
+    OrderComponent,
+    ProductQuantityComponent,
+    ConfirmOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +82,9 @@ import { OrderComponent } from './components/merchant/order/order/order.componen
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },DatePipe],
   bootstrap: [AppComponent]

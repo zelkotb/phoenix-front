@@ -1,3 +1,5 @@
+import { ProductQuantity } from "../components/merchant/order/product-quantity/product-quantity.component";
+
 export class CreateOrder {
     name: string;
     phone: string;
@@ -8,5 +10,5 @@ export class CreateOrder {
     open: boolean;
     date: string;
     comment: string;
-    products: string[];
+    products: ProductQuantity[];
 }

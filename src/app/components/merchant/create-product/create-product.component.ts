@@ -83,8 +83,9 @@ export class CreateProductComponent implements OnInit {
     
     this.productService.createProduct(this.createProduct).subscribe(
       result => {
-        setTimeout(function(){location.reload()}, 1000);
-        this.openSnackBarSuccess("Produit créé avec succès")
+        this.openSnackBarSuccess("Produit créé avec succès");
+        this.refresh();
+        this.loading = true;
       },
       error => {
         this.mode = "";
@@ -121,5 +122,15 @@ export class CreateProductComponent implements OnInit {
       panelClass: 'app-snack-bar-success',
       duration: 5000
     });
+  }
+
+  refresh(){
+    this.name.reset();
+    this.reference.reset();
+    this.description.reset();
+    this.price.reset();
+    this.weight.reset();
+    this.quantity.reset();
+    this.category.reset();
   }
 }

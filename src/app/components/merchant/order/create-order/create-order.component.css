@@ -1,0 +1,52 @@
+.create-order-button{
+    display: flex;
+    justify-content: center;
+}
+.create-order-title{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    text-decoration: underline;
+    padding-top: 20px;
+}
+.sub-form-inputs{
+    margin-top: 50px;
+    padding: 20px;
+}
+.tripple-input{
+    display: flex;
+    justify-content: center;
+}
+.tripple-input-2{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+mat-form-field{
+    width: 25%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.create-order-container{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.question-section{
+    width: 25%;
+    margin-top: 15px;
+    margin-left: 30px;
+}
+.description{
+    width: 50%;
+}
+.fragile{
+    margin-right: 50px;
+}
+.quantity-button{
+    width: 25%;
+    margin-bottom: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}

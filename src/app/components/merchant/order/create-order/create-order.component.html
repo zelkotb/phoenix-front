@@ -1,1 +1,143 @@
-<p>create-order works!</p>
+<div class="create-order-container">
+    <div>
+        <form [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
+            <mat-card class="create-order-card">
+                <mat-card-title class="create-order-title">Commande</mat-card-title>
+                    <div class="sub-form-inputs">
+                        <div class="tripple-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nom Complet</mat-label>
+                                <input maxlength="50" required formControlName="name" matInput placeholder="Placeholder">
+                                <mat-icon
+                                    [ngStyle]="{'color':(name.invalid && (name.dirty || name.touched)) ? 'red' : 'black' }"
+                                    matSuffix>style</mat-icon>
+                                <mat-hint align="end">{{name.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Nom Complet du client</mat-hint>
+                                <mat-error
+                                    *ngIf="((name.invalid && (name.dirty || name.touched)) && name.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Numéro de téléphone</mat-label>
+                                <input type="tel" maxlength="10" required formControlName="tel" matInput
+                                    placeholder="Placeholder" pattern="[0-9]{10}">
+                                <mat-icon
+                                    [ngStyle]="{'color':(tel.invalid && (tel.dirty || tel.touched)) ? 'red' : 'black' }"
+                                    matSuffix>
+                                    local_phone</mat-icon>
+                                <mat-hint align="end">{{tel.value?.length || 0}}/10</mat-hint>
+                                <mat-hint>* ex : 0600000000</mat-hint>
+                                <mat-error *ngIf="((tel.invalid && (tel.dirty || tel.touched)) && tel.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                                <mat-error *ngIf="((tel.invalid && (tel.dirty || tel.touched)) && tel.errors.pattern)">
+                                    Numéro doit être 10 chiffres
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ville</mat-label>
+                                <input type="text"
+                                       placeholder="Choisir une ville"
+                                       aria-label="Number"
+                                       matInput
+                                       formControlName="city"
+                                       [matAutocomplete]="auto">
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                  <mat-option *ngFor="let city of filteredOptions | async" [value]="city">
+                                    {{city}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                                <mat-hint>* Ville où envoyer la commande</mat-hint>
+                              </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Région</mat-label>
+                                <mat-select (selectionChange)="changeCities($event.value)" formControlName="region">
+                                <mat-option *ngFor="let region of regions" [value]="region">{{region.name}}</mat-option>
+                                </mat-select>
+                                <mat-hint>* Région pour filtrage des villes</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="tripple-input-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Adresse</mat-label>
+                                <input maxlength="50" required formControlName="address" matInput placeholder="Placeholder">
+                                <mat-icon
+                                    [ngStyle]="{'color':(address.invalid && (address.dirty || address.touched)) ? 'red' : 'black' }"
+                                    matSuffix>style</mat-icon>
+                                <mat-hint align="end">{{address.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Adresse où envoyer la commande</mat-hint>
+                                <mat-error
+                                    *ngIf="((address.invalid && (address.dirty || address.touched)) && address.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="right-input" appearance="outline">
+                                <mat-label>Prix en Dhs</mat-label>
+                                <input maxlength="50" formControlName="price" required matInput placeholder="Placeholder" 
+                                pattern="^\d+(.\d{1,2})?$">
+                                <mat-icon
+                                    [ngStyle]="{'color':(price.invalid && (price.dirty || price.touched)) ? 'red' : 'black' }"
+                                    matSuffix>attach_money</mat-icon>
+                                <mat-hint align="end">{{price.value?.length || 0}}/50</mat-hint>
+                                <mat-hint>* Prix en Dirham récolté du client</mat-hint>
+                                <mat-error
+                                    *ngIf="((price.invalid && (price.dirty || price.touched)) && price.errors.required)">
+                                    champs
+                                    requis
+                                </mat-error>
+                                <mat-error
+                                *ngIf="((price.invalid && (price.dirty || price.touched)) && price.errors.pattern)">
+                                format du prix est invalid
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Produit</mat-label>
+                                <mat-select formControlName="product" multiple>
+                                <mat-option *ngFor="let product of products" [value]="product">{{product}}</mat-option>
+                                </mat-select>
+                                <mat-hint>* Choisir un Produit</mat-hint>
+                            </mat-form-field>
+                            <button (click)="openDialog()" color="primary" type="button" class="quantity-button" mat-raised-button>
+                                Définir la quantité
+                            </button>
+                        </div>
+                        <div class="tripple-input-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Choisir une date de Livraison</mat-label>
+                                <input formControlName="date" [matDatepickerFilter]="myFilter" disabled matInput [matDatepicker]="datepicker">
+                                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker disabled="false">
+                                  <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Annuler</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Valider</button>
+                                  </mat-datepicker-actions>
+                                </mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field class="description" appearance="outline">
+                                <mat-label>Commentaire</mat-label>
+                                <textarea maxlength="100" formControlName="description" matInput placeholder="Ex. It makes me feel..."></textarea>
+                                <mat-icon matSuffix>description</mat-icon>
+                                <mat-hint align="end">{{description.value?.length || 0}}/100</mat-hint>
+                                <mat-hint>* Commentaire sur la commande</mat-hint>
+                            </mat-form-field>
+                            <section class="question-section">
+                                <mat-checkbox color="primary" class="fragile" formControlName="brittle">Cocher si la commande est <b>fragile?</b></mat-checkbox>
+                                <mat-checkbox color="primary" formControlName="open">Cocher si la commande est <b>ouvrable?</b></mat-checkbox>
+                            </section>
+                        </div>
+                        <mat-card-actions class="create-order-button">
+                            <button color="primary" type="submit" mat-raised-button
+                                [disabled]="loading || !createOrderForm.valid">CREER LA COMMANDE
+                            </button>
+                            <mat-progress-spinner *ngIf="loading" strokeWidth=5 diameter=50 [mode]="mode">
+                            </mat-progress-spinner>
+                        </mat-card-actions>
+                    </div>
+            </mat-card>
+        </form>
+    </div>
+</div>
