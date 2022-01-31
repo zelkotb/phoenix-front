@@ -40,6 +40,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ProductQuantityComponent } from './components/merchant/order/product-quantity/product-quantity.component';
 import { ConfirmOrderComponent } from './components/merchant/order/confirm-order/confirm-order.component';
+import { ListOrderComponent } from './components/merchant/order/list-order/list-order.component';
+import { OrderDocumentComponent } from './components/merchant/order/order-document/order-document.component';
 
 
 @NgModule({
@@ -72,7 +74,9 @@ import { ConfirmOrderComponent } from './components/merchant/order/confirm-order
     CreateOrderComponent,
     OrderComponent,
     ProductQuantityComponent,
-    ConfirmOrderComponent
+    ConfirmOrderComponent,
+    ListOrderComponent,
+    OrderDocumentComponent
   ],
   imports: [
     BrowserModule,

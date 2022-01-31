@@ -114,20 +114,26 @@ export class ProductListComponent implements OnInit {
   }
 
   updateProductPopup(id){
-    this.dialog.open(UpdateProductComponent, {
+    const dialogRef = this.dialog.open(UpdateProductComponent, {
       data: {
         id: id,
       },
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
   }
 
   updateQuantityPopup(id){
-    this.dialog.open(UpdateQuantityComponent, {
+    const dialogRef = this.dialog.open(UpdateQuantityComponent, {
       data: {
         id: id,
         quantity: this.products.filter(p=>p.id==id).map(p=>p.quantity),
         type: "local"
       },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
     });
   }
 

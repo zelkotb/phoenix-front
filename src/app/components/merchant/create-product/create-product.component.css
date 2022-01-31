@@ -18,16 +18,25 @@
     font-size: 30px;
     text-decoration: underline;
     padding-top: 20px;
+    margin-bottom: 40px;
 }
-.right-input{
-    margin-right: 20px;
+.tripple-input{
+    display: flex;
+    justify-content: center;
 }
-.right-input-slide{
-    margin-right: 33px;
+.tripple-input-2{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
-.sub-form-inputs{
-    margin-top: 50px;
+mat-form-field{
+    width: 25%;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .description{
-    width: 100%;
+    width: 50%;
+}
+mat-slide-toggle{
+    margin-top: 20px;
 }

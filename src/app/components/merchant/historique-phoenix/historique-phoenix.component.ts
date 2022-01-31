@@ -9,6 +9,7 @@ import { SnackBarFailureComponent } from '../../common/snack-bar-failure/snack-b
 import { SnackBarSuccessComponent } from '../../common/snack-bar-success/snack-bar-success.component';
 import { History} from '../../../model/history';
 import { GenerateDocumentComponent } from '../generate-document/generate-document.component';
+import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class HistoriquePhoenixComponent implements OnInit {
     'quantity',
     'operation',
     'status',
-    'date'
+    'date',
+    'actions'
   ];
   dataSource: MatTableDataSource<History>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -110,6 +112,33 @@ export class HistoriquePhoenixComponent implements OnInit {
 
   openGenerateDocPopup(){
     this.dialog.open(GenerateDocumentComponent);
+  }
+
+  deleteHistoy(row){
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        text:
+          "Êtes-Vous sûr de supprimer cette opération avec nom : "
+          + row.name + "?",
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirmed") {
+        this.historyService.deleteHistoryPhoenix(row.id).subscribe(
+          result => {
+            this.openSnackBarSuccess("historique supprimé");
+            let index = this.historiesPhoenix.indexOf(row);
+            this.historiesPhoenix.splice(index, 1)
+            this.dataSource = new MatTableDataSource(this.historiesPhoenix);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          },
+          error => {
+            this.openSnackBarFailure(error);
+          }
+        );
+      }
+    });
   }
 
 }

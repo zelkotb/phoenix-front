@@ -4,7 +4,7 @@
             <mat-card class="create-product-card">
                 <mat-card-title class="create-product-title">Produit</mat-card-title>
                     <div class="sub-form-inputs">
-                        <p class="d-flex justify-content-center">
+                        <div class="tripple-input">
                             <mat-form-field class="right-input" appearance="outline">
                                 <mat-label>Nom</mat-label>
                                 <input maxlength="50" required formControlName="name" matInput placeholder="Placeholder">
@@ -33,17 +33,6 @@
                                     requis
                                 </mat-error>
                             </mat-form-field>
-                        </p>
-                        <p class="d-flex justify-content-center">
-                        <mat-form-field class="description" appearance="outline">
-                            <mat-label>Description</mat-label>
-                            <textarea maxlength="300" formControlName="description" matInput placeholder="Ex. It makes me feel..."></textarea>
-                            <mat-icon matSuffix>description</mat-icon>
-                            <mat-hint align="end">{{description.value?.length || 0}}/300</mat-hint>
-                            <mat-hint>* Description du produit</mat-hint>
-                        </mat-form-field>
-                        </p>
-                        <p class="d-flex justify-content-center">
                             <mat-form-field style="width: 47.5%;" class="right-input" appearance="outline">
                                 <mat-label>Catégory</mat-label>
                                 <mat-select formControlName="category">
@@ -70,8 +59,8 @@
                                 format de la quantité est invalid
                                 </mat-error>
                             </mat-form-field>
-                        </p>
-                        <p class="d-flex justify-content-center">
+                        </div>
+                        <div class="tripple-input-2">
                             <mat-form-field class="right-input" appearance="outline">
                                 <mat-label>Prix Unitaire en Dhs</mat-label>
                                 <input maxlength="50" formControlName="price" matInput placeholder="Placeholder" 
@@ -109,17 +98,24 @@
                                 format du poids est invalid
                                 </mat-error>
                             </mat-form-field>
-                        </p>
-                        <p class="d-flex justify-content-center">
+                            <mat-form-field class="description" appearance="outline">
+                                <mat-label>Description</mat-label>
+                                <textarea maxlength="300" formControlName="description" matInput placeholder="Ex. It makes me feel..."></textarea>
+                                <mat-icon matSuffix>description</mat-icon>
+                                <mat-hint align="end">{{description.value?.length || 0}}/300</mat-hint>
+                                <mat-hint>* Description du produit</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="tripple-input-2">
                             <mat-slide-toggle
-                                [(ngModel)]="isChecked"
-                                [ngModelOptions]="{standalone: true}"
-                                color="primary"
-                                checked="false"
-                                class="right-input-slide"
-                                [disabled]="loading"
-                                >
-                                J'ai un stock chez phoenix?  
+                            [(ngModel)]="isChecked"
+                            [ngModelOptions]="{standalone: true}"
+                            color="primary"
+                            checked="false"
+                            class="right-input-slide"
+                            [disabled]="loading"
+                            >
+                            J'ai un stock chez phoenix?  
                             </mat-slide-toggle>
                             <mat-form-field 
                                 *ngIf="isChecked"
@@ -149,7 +145,7 @@
                                 format de la quantité est invalid
                                 </mat-error>
                             </mat-form-field>
-                        </p>
+                        </div>
                         <mat-card-actions class="create-product-button">
                             <button color="primary" type="submit" mat-raised-button
                                 [disabled]="loading || !createProductForm.valid || (createProductForm.valid && isChecked && !isQuantityPhoenixValid())">CREER LE PRODUIT

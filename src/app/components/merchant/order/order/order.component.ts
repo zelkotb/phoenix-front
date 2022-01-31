@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ListOrderComponent } from '../list-order/list-order.component';
 
 @Component({
   selector: 'app-order',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
+  @ViewChild(ListOrderComponent) listOrderComponent;
   constructor() { }
 
   selected : number;
@@ -20,6 +22,9 @@ export class OrderComponent implements OnInit {
 
   saveIndex(event){
     localStorage.setItem("tabndexOrder",event.toString());
+    if(event === 1){
+      this.listOrderComponent.refresh();
+    }
   }
 
 }

@@ -25,3 +25,7 @@ export class DocumentHistory {
     type: Operation;
     date: string;
 }
+
+export class OrderDocument {
+    operations: number[];
+}

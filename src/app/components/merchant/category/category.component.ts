@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
       result => {
         this.openSnackBarSuccess("Categorie créé avec succès");
         this.name.reset();
-        this.loading = true;
+        this.loading = false;
       },
       error => {
         this.mode = "";

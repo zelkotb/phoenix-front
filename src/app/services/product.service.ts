@@ -72,7 +72,7 @@ export class ProductService {
             return throwError("Le nom du produit doit être unique");
           }
           else if (err.error.httpStatusCode == 400 && err.error.responseMessage === "product name should not contain ','") {
-            return throwError("Le nom du produit ne doit pas contenir ','");
+            return throwError("Le nom du produit ne doit pas contenir &,'()");
           }
           else if (err.error.httpStatusCode == 400) {
             return throwError("un paramètre incorrect");

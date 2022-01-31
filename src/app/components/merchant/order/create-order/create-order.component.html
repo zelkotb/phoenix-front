@@ -119,9 +119,9 @@
                             </mat-form-field>
                             <mat-form-field class="description" appearance="outline">
                                 <mat-label>Commentaire</mat-label>
-                                <textarea maxlength="100" formControlName="description" matInput placeholder="Ex. It makes me feel..."></textarea>
+                                <textarea maxlength="70" formControlName="description" matInput placeholder="Ex. It makes me feel..."></textarea>
                                 <mat-icon matSuffix>description</mat-icon>
-                                <mat-hint align="end">{{description.value?.length || 0}}/100</mat-hint>
+                                <mat-hint align="end">{{description.value?.length || 0}}/70</mat-hint>
                                 <mat-hint>* Commentaire sur la commande</mat-hint>
                             </mat-form-field>
                             <section class="question-section">

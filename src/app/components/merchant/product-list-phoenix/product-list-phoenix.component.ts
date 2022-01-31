@@ -53,20 +53,26 @@ export class ProductListPhoenixComponent implements OnInit {
   }
 
   updateProductPopup(id){
-    this.dialog.open(UpdateProductComponent, {
+    const dialogRef = this.dialog.open(UpdateProductComponent, {
       data: {
         id: id,
       },
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
   }
 
   updateQuantityPopup(id){
-    this.dialog.open(UpdateQuantityComponent, {
+    const dialogRef = this.dialog.open(UpdateQuantityComponent, {
       data: {
         id: id,
         quantity: this.products.filter(p=>p.id==id).map(p=>p.quantityPhoenix),
         type: "phoenix"
       },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
     });
   }
 

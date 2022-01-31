@@ -50,4 +50,23 @@ export class HistoryService {
       )
     );
   }
+
+  deleteHistoryPhoenix(id: number){
+    let url = environment.host + '/api/histories/phoenix/'+id;
+    return this.http.delete(url, this.httpOptions).pipe(
+      catchError(
+        err => {
+          if (err.error.httpStatusCode == 400) {
+            return throwError("un paramètre incorrect");
+          }
+          else if (err.error.httpStatusCode == 500) {
+            return throwError("Erreur Interne");
+          }
+          else {
+            return throwError("Erreur Inconnue");
+          }
+        }
+      )
+    );
+  }
 }

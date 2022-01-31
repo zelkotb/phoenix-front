@@ -22,13 +22,13 @@
                     <th mat-header-cell *matHeaderCellDef> NOM DU PRODUIT </th>
                     <td mat-cell *matCellDef="let row"> {{row.product}} </td>
                 </ng-container>
-                <ng-container matColumnDef="quantityPhoenix">
-                    <th mat-header-cell *matHeaderCellDef> QUANTITY CHEZ PHOENIX </th>
-                    <td mat-cell *matCellDef="let row"> {{row.quantityPhoenix}} </td>
-                </ng-container>
                 <ng-container matColumnDef="quantity">
                     <th mat-header-cell *matHeaderCellDef> Quantité DANS MON STOCK</th>
                     <td mat-cell *matCellDef="let row"> {{row.quantity}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quantityPhoenix">
+                    <th mat-header-cell *matHeaderCellDef> QUANTITY CHEZ PHOENIX </th>
+                    <td mat-cell *matCellDef="let row"> {{row.quantityPhoenix}} </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -37,6 +37,6 @@
     </mat-dialog-content>
     <div mat-dialog-actions>
         <button  mat-raised-button (click)="onNoClick()">No Thanks</button>
-        <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true">Ok</button>
     </div>
 </div>

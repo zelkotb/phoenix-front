@@ -85,7 +85,7 @@ export class CreateProductComponent implements OnInit {
       result => {
         this.openSnackBarSuccess("Produit créé avec succès");
         this.refresh();
-        this.loading = true;
+        this.loading = false;
       },
       error => {
         this.mode = "";
@@ -132,5 +132,15 @@ export class CreateProductComponent implements OnInit {
     this.weight.reset();
     this.quantity.reset();
     this.category.reset();
+    this.categoryService.listCategories().subscribe(
+      result => {
+        this.categories = result;
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+        this.openSnackBarFailure(error);
+      }
+    )
   }
 }

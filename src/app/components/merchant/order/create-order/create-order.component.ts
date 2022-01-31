@@ -12,6 +12,7 @@ import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component'
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/internal/operators';
 import { OrderService } from '../../../../services/order.service';
+import { SnackBarSuccessComponent } from 'src/app/components/common/snack-bar-success/snack-bar-success.component';
 
 @Component({
   selector: 'app-create-order',
@@ -39,13 +40,13 @@ export class CreateOrderComponent implements OnInit {
     const day = d?.getDay();
     const currentDate = new Date();
     let isAfterToday : boolean;
-    if(day === 0 || day === 6){
+    if(day === 0){
       isAfterToday = d?.getTime() > (currentDate.getTime()+2*86400000);
     }else{
       isAfterToday = d?.getTime() > (currentDate.getTime()+86400000);
     }
     // Prevent Saturday and Sunday from being selected.
-    return day !== 6 && isAfterToday;
+    return day !== 0 && isAfterToday;
   };
   cities : string [] = [];
   regions : Region [] = [
@@ -124,16 +125,17 @@ export class CreateOrderComponent implements OnInit {
     this.order.comment = this.description.value;
     if(!this.isCityValid()){
       this.openSnackBarFailure("La livraison vers "+this.order.city+" non autorisé");
+      this.loading = false;
       return;
     }
     if(!this.isQuatityProductValid()){
       this.openSnackBarFailure("Vous avez oublié d'ajouter les quantités pour les produits");
+      this.loading = false;
     }
     else{
       this.order.products = this.productQuantity;
       this.openConfirmation(this.order);
     }
-
   }
 
   changeCities(event: Region){
@@ -170,6 +172,14 @@ export class CreateOrderComponent implements OnInit {
     this._snackBar.openFromComponent(SnackBarFailureComponent, {
       data: message,
       panelClass: 'app-snack-bar-failure',
+      duration: 5000
+    });
+  }
+
+  openSnackBarSuccess(message: string) {
+    this._snackBar.openFromComponent(SnackBarSuccessComponent, {
+      data: message,
+      panelClass: 'app-snack-bar-success',
       duration: 5000
     });
   }
@@ -214,6 +224,7 @@ export class CreateOrderComponent implements OnInit {
           result => {
             this.loading = false;
             this.refresh();
+            this.openSnackBarSuccess("commande créé avec succès")
           },
           error => {
             this.openSnackBarFailure(error);
@@ -222,6 +233,7 @@ export class CreateOrderComponent implements OnInit {
         )
       }
     });
+    this.loading = false;
   }
 
   private _filter(value: string): string[] {

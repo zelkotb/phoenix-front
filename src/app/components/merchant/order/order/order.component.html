@@ -1,3 +1,4 @@
 <mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="saveIndex($event)" color="accent" mat-align-tabs="center">
     <mat-tab label="Créer une Commande"><app-create-order></app-create-order></mat-tab>
+    <mat-tab label="Commandes"><app-list-order></app-list-order></mat-tab>
 </mat-tab-group>

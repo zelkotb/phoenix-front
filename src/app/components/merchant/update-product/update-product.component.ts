@@ -83,8 +83,8 @@ export class UpdateProductComponent implements OnInit {
     }
     this.productService.updateProduct(this.updateProduct, this.data.id).subscribe(
       result => {
-        setTimeout(function(){location.reload()}, 1000);
         this.openSnackBarSuccess("Produit modifié avec succès");
+        this.dialogRef.close();
       },
       error => {
         this.loading = false;
