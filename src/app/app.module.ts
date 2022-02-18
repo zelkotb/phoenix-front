@@ -42,6 +42,21 @@ import { ProductQuantityComponent } from './components/merchant/order/product-qu
 import { ConfirmOrderComponent } from './components/merchant/order/confirm-order/confirm-order.component';
 import { ListOrderComponent } from './components/merchant/order/list-order/list-order.component';
 import { OrderDocumentComponent } from './components/merchant/order/order-document/order-document.component';
+import { OrderAdminComponent } from './components/admin/orders/order-admin/order-admin.component';
+import { OrderInWaitComponent } from './components/admin/orders/order-in-wait/order-in-wait.component';
+import { OrderInWaitToPickUpComponent } from './components/admin/orders/order-in-wait-to-pick-up/order-in-wait-to-pick-up.component';
+import { OrderInWaitDetailsComponent } from './components/admin/orders/order-in-wait-details/order-in-wait-details.component';
+import { OrderPickedUpComponent } from './components/admin/orders/order-picked-up/order-picked-up.component';
+import { OrderPickedUpValidationDetailsComponent } from './components/admin/orders/order-picked-up-validation-details/order-picked-up-validation-details.component';
+import { OrderShippedComponent } from './components/admin/orders/order-shipped/order-shipped.component';
+import { OrderInDistributionComponent } from './components/admin/orders/order-in-distribution/order-in-distribution.component';
+import { HistoryComponent } from './components/admin/orders/history/history.component';
+import { BLOrderPerCityPopupComponent } from './components/admin/orders/blorder-per-city-popup/blorder-per-city-popup.component';
+import { OrderValidatedComponent } from './components/admin/orders/order-validated/order-validated.component';
+import { OrderCommentPopupComponent } from './components/admin/orders/order-comment-popup/order-comment-popup.component';
+import { OrderRefusedOrCanceledComponent } from './components/admin/orders/order-refused-or-canceled/order-refused-or-canceled.component';
+import { OrderReturnedComponent } from './components/admin/orders/order-returned/order-returned.component';
+import { OrderCommentInDistributionComponent } from './components/admin/orders/order-comment-in-distribution/order-comment-in-distribution.component';
 
 
 @NgModule({
@@ -76,7 +91,22 @@ import { OrderDocumentComponent } from './components/merchant/order/order-docume
     ProductQuantityComponent,
     ConfirmOrderComponent,
     ListOrderComponent,
-    OrderDocumentComponent
+    OrderDocumentComponent,
+    OrderAdminComponent,
+    OrderInWaitComponent,
+    OrderInWaitToPickUpComponent,
+    OrderInWaitDetailsComponent,
+    OrderPickedUpComponent,
+    OrderPickedUpValidationDetailsComponent,
+    OrderShippedComponent,
+    OrderInDistributionComponent,
+    HistoryComponent,
+    BLOrderPerCityPopupComponent,
+    OrderValidatedComponent,
+    OrderCommentPopupComponent,
+    OrderRefusedOrCanceledComponent,
+    OrderReturnedComponent,
+    OrderCommentInDistributionComponent
   ],
   imports: [
     BrowserModule,

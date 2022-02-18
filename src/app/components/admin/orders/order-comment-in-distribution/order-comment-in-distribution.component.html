@@ -1,0 +1,10 @@
+<form>
+    <mat-form-field class="description" appearance="outline">
+        <mat-label>Commentaire</mat-label>
+        <textarea maxlength="300" name="comment" [(ngModel)]="comment" matInput placeholder="Ex. Client ne reponds pas..."></textarea>
+        <mat-icon matSuffix>description</mat-icon>
+        <mat-hint align="end">{{comment?.length || 0}}/300</mat-hint>
+        <mat-hint>* Motif de refus/annulation</mat-hint>
+    </mat-form-field>
+    <button [disabled]="!isCommentValid()" (click)="createOrUpdateComment()" mat-raised-button color="primary">Valider l'opération</button>
+</form>

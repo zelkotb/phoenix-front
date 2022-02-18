@@ -1,0 +1,11 @@
+<mat-tab-group [selectedIndex]="selected" (selectedIndexChange)="saveIndex($event)" color="accent" mat-align-tabs="center">
+    <mat-tab label="En Attente"><app-order-in-wait></app-order-in-wait></mat-tab>
+    <mat-tab label="En Attente de Ramassage"><app-order-in-wait-to-pick-up></app-order-in-wait-to-pick-up></mat-tab>
+    <mat-tab label="Ramassé"><app-order-picked-up></app-order-picked-up></mat-tab>
+    <mat-tab label="Expédié"><app-order-shipped></app-order-shipped></mat-tab>
+    <mat-tab label="Mise en distribustion"><app-order-in-distribution></app-order-in-distribution></mat-tab>
+    <mat-tab label="Refusé/Annuler"><app-order-refused-or-canceled></app-order-refused-or-canceled></mat-tab>
+    <mat-tab label="Livré"><app-order-validated></app-order-validated></mat-tab>
+    <mat-tab label="Historiques"><app-history></app-history></mat-tab>
+    <mat-tab label="Retourné"><app-order-returned></app-order-returned></mat-tab>
+</mat-tab-group>

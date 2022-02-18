@@ -92,4 +92,5 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export interface DialogData {
   id: number;
+  comment: string;
 }

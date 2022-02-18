@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogDataExampleDialog } from 'src/app/components/admin/orders/order-refused-or-canceled/order-refused-or-canceled.component';
 import { ConfirmationComponent } from 'src/app/components/common/confirmation/confirmation.component';
 import { SnackBarFailureComponent } from 'src/app/components/common/snack-bar-failure/snack-bar-failure.component';
 import { SnackBarSuccessComponent } from 'src/app/components/common/snack-bar-success/snack-bar-success.component';
@@ -43,10 +44,6 @@ export class ListOrderComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.orders);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSource.sort.sort(<MatSortable>{
-          id: 'id',
-          start: 'desc'
-        });
         this.loading = false;
       },
       error => {
@@ -79,10 +76,6 @@ export class ListOrderComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.orders);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSource.sort.sort(<MatSortable>{
-          id: 'id',
-          start: 'desc'
-        });
         this.loading = false;
       },
       error => {
@@ -137,6 +130,22 @@ export class ListOrderComponent implements OnInit {
 
   openGenerateDocPopup(){
     this.dialog.open(OrderDocumentComponent);
+  }
+
+  openCommentPopup(id: number){
+    this.orderService.getCommentByOrderId(id).subscribe(
+      result => {
+        this.dialog.open(DialogDataExampleDialog, {
+          data: {
+            id: id,
+            comment: result.comment
+          },
+        });
+      },
+      error => {
+        this.openSnackBarFailure(error);
+      }
+    )
   }
 
 }

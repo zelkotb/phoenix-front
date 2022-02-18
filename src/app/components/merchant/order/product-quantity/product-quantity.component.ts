@@ -35,6 +35,7 @@ export class ProductQuantityComponent implements OnInit {
 }
 
 export class ProductQuantity {
+  id: number;
   product: string;
   quantityPhoenix: number;
   quantity: number;

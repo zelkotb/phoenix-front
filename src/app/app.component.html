@@ -51,6 +51,14 @@
                 <span class="aligned-with-icon-new">Gestion des Bons</span>
             </li>
             <li 
+            [class.active-item]="isActive('admin/orders',true)" 
+            *ngIf="loginService.isAdmin()"
+            routerLink="{{baseUrl}}admin/orders"
+            >
+                <mat-icon class="mat-icon">shopping_cart</mat-icon>
+                <span class="aligned-with-icon-new">Gestion des Commandes</span>
+            </li>
+            <li 
             [class.active-item]="isActive('products',true)" 
             *ngIf="loginService.isMerchant()"
             routerLink="{{baseUrl}}products"

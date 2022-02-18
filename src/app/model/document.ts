@@ -29,3 +29,10 @@ export class DocumentHistory {
 export class OrderDocument {
     operations: number[];
 }
+
+export class OrderDocumentResponse {
+    id: number;
+    email: string;
+    phone: string;
+    name: string;
+}

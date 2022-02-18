@@ -1,0 +1,12 @@
+<form>
+    <mat-form-field appearance="outline">
+      <mat-label>Ville</mat-label>
+      <mat-select [(ngModel)]="city" name="city">
+        <mat-option *ngFor="let c of cities" [value]="c.name">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+      <mat-hint>* BL sera télécharger par ville</mat-hint>
+    </mat-form-field>
+    <button cdkFocusInitial (click)="generateDocument()" mat-raised-button color="primary">Generer le BL</button>
+  </form>

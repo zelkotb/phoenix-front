@@ -13,6 +13,8 @@ import { DocumentListComponent } from './components/admin/document-list/document
 import { UpdateAccountComponent } from './components/update-account/update-account.component';
 import { ProductComponent } from './components/merchant/product/product.component';
 import { OrderComponent } from './components/merchant/order/order/order.component';
+import { OrderAdminComponent } from './components/admin/orders/order-admin/order-admin.component';
+import { AdminOrOfficeGuard } from './guards/admin-or-office.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/' + environment.base + 'login', pathMatch: 'full' },
@@ -25,6 +27,10 @@ const routes: Routes = [
   {
     path: environment.base + 'register/backoffice', component: RegisterBackOfficeComponent
     , canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: environment.base + 'admin/orders', component: OrderAdminComponent
+    , canActivate: [AuthGuard, AdminOrOfficeGuard]
   },
   {
     path: environment.base + 'documents', component: DocumentListComponent

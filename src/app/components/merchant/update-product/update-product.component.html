@@ -7,7 +7,7 @@
             <p class="d-flex justify-content-center">
                 <mat-form-field class="right-input" appearance="outline">
                     <mat-label>Nom</mat-label>
-                    <input [ngModel]="product?.name"  maxlength="50" required formControlName="name" matInput placeholder="Placeholder">
+                    <input [disabled]="true" [ngModel]="product?.name"  maxlength="50" required formControlName="name" matInput placeholder="Placeholder">
                     <mat-icon
                         [ngStyle]="{'color':(name.invalid && (name.dirty || name.touched)) ? 'red' : 'black' }"
                         matSuffix>style</mat-icon>

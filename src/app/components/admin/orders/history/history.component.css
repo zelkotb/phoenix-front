@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+}
+.table-container{
+    margin: 20px;
+}
+.filter-div{
+    display: flex;
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+button{
+    margin: 10px;
+}

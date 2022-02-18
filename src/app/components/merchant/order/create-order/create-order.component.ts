@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/internal/operators';
 import { OrderService } from '../../../../services/order.service';
 import { SnackBarSuccessComponent } from 'src/app/components/common/snack-bar-success/snack-bar-success.component';
+import { Router } from '@angular/router';
+import { Product } from 'src/app/model/product';
 
 @Component({
   selector: 'app-create-order',
@@ -30,7 +32,7 @@ export class CreateOrderComponent implements OnInit {
     region: new FormControl(''),
     address: new FormControl('', Validators.required),
     price: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
+    date: new FormControl(''),
     brittle: new FormControl(''),
     open: new FormControl(''),
     description: new FormControl(''),
@@ -67,6 +69,7 @@ export class CreateOrderComponent implements OnInit {
     },
   ];
   products : string [] = [];
+  fullProducts : Product[];
   order: CreateOrder = new CreateOrder();
   productQuantity : ProductQuantity[] = [];
   filteredOptions: Observable<string[]>;
@@ -75,7 +78,8 @@ export class CreateOrderComponent implements OnInit {
     private _snackBar: MatSnackBar,
     public datepipe: DatePipe, 
     public dialog: MatDialog,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -90,6 +94,7 @@ export class CreateOrderComponent implements OnInit {
     );
     this.productService.listProducts(undefined).subscribe(
       result => {
+        this.fullProducts = result;
         this.products = result.map(p => p.name);
       },
       error => {
@@ -119,7 +124,11 @@ export class CreateOrderComponent implements OnInit {
     this.order.city = this.city.value;
     this.order.address = this.address.value;
     this.order.price = parseFloat(this.price.value.replace(",",".") );
-    this.order.date = this.datepipe.transform(this.date.value, 'dd-MM-yyyy HH:mm').toString();
+    if(this.order.date == undefined){
+      this.order.date = this.datepipe.transform(new Date().setDate(new Date().getDate() + 2), 'dd-MM-yyyy HH:mm').toString();
+    }else{
+      this.order.date = this.datepipe.transform(this.date.value, 'dd-MM-yyyy HH:mm').toString();
+    }
     this.order.brittle = this.brittle.value == '' ? false : this.brittle.value;
     this.order.open = this.open.value == '' ? false : this.open.value;
     this.order.comment = this.description.value;
@@ -193,6 +202,7 @@ export class CreateOrderComponent implements OnInit {
       for(let pro of this.product.value){
         if(this.productQuantity.map(pq => pq.product).indexOf(pro) === -1){
           this.productQuantity.push({
+            id: this.getId(pro),
             product: pro,
             quantity: 0,
             quantityPhoenix: 0
@@ -223,7 +233,9 @@ export class CreateOrderComponent implements OnInit {
         this.orderService.createOrder(order).subscribe(
           result => {
             this.loading = false;
-            this.refresh();
+            this.router.navigateByUrl('/phoenix/products', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/phoenix/orders']);
+          }); 
             this.openSnackBarSuccess("commande créé avec succès")
           },
           error => {
@@ -253,5 +265,10 @@ export class CreateOrderComponent implements OnInit {
     this.description.reset();
     this.product.reset();
     this.region.reset();
+  }
+
+  getId(name: string) : number{
+    let p = this.fullProducts.find(p => p.name === name);
+    return p.id;
   }
 }

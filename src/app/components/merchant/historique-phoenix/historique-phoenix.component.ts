@@ -48,11 +48,6 @@ export class HistoriquePhoenixComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.historiesPhoenix);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSource.sort.sort(<MatSortable>{
-          id: 'id',
-          start: 'desc'
-        }
-        );
         this.loading = false;
       },
       error => {

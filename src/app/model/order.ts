@@ -24,10 +24,20 @@ export class Order {
     open: boolean;
     date: string;
     comment: string;
-    status: orderStatus;
+    status: OrderStatus;
     products: ProductQuantity[];
+    documentId: number;
 }
 
-export enum orderStatus{
-    EN_ATTENTE, EN_ATTENTE_RAMASSAGE
+export class RefuseOrderRequest {
+    comment: string;
+}
+
+export class CommentResponse{
+    comment: string;
+    id: string;
+}
+
+export enum OrderStatus{
+    EN_ATTENTE, EN_ATTENTE_RAMASSAGE, RAMASSE, EXPEDITE, IN_DISTRIBUTION, LIVRE, ANNULE, REFUSE
 }

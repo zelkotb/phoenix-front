@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CreateProductComponent } from '../create-product/create-product.component';
 import { DocumentHistoryComponent } from '../document-history/document-history.component';
 import { HistoriquePhoenixComponent } from '../historique-phoenix/historique-phoenix.component';
 import { HistoriqueComponent } from '../historique/historique.component';
@@ -19,6 +20,7 @@ export class ProductComponent implements OnInit {
   @ViewChild(HistoriqueComponent) historiqueComponent;
   @ViewChild(HistoriquePhoenixComponent) historiquePhoenixComponent;
   @ViewChild(DocumentHistoryComponent) documentHistoryComponent;
+  @ViewChild(CreateProductComponent) createProductComponent;
 
   selected : number;
 
@@ -45,6 +47,9 @@ export class ProductComponent implements OnInit {
     }
     if(event === 6){
       this.documentHistoryComponent.refresh();
+    }
+    if(event === 4){
+      this.createProductComponent.refresh();
     }
   }
 

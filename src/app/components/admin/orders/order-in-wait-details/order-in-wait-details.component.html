@@ -1,0 +1,43 @@
+<div *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+<div class="container" *ngIf="!loading">
+    <div class="title">
+        <h1>Confirmation des details de votre commande</h1>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <div *ngFor="let order of orders">
+                <div class="info">
+                    <div class="info-content info-right">
+                        <p>Nom de client : <b>{{order.name}}</b></p>
+                        <p>Adresse de client : <b>{{order.address}}</b></p>
+                        <p>Prix à récolter de client : <b>{{order.price}}</b></p>
+                        <p>Est ce que le contenu de la commande fragile ? : <b>{{order.brittle ? "Oui" : "Non"}}</b></p>
+                    </div>
+                    <div class="info-content">
+                        <p>Numéro de client : <b>{{order.phone}}</b></p>
+                        <p>Ville où la commande va étre livrée : <b>{{order.city}}</b></p>
+                        <p>La date de livraison : <b>{{order.date}}</b></p>
+                        <p>Est ce que le client peut ouvrir la commande ? : <b>{{order.open ? "Oui" : "Non"}}</b></p>
+                    </div>
+                </div>
+                <p>Commentaire sur la commande : <b>{{order.comment}}</b></p>
+                <table id="customers">
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité Phoenix</th>
+                        <th>Quantité local</th>
+                    </tr>
+                    <tr *ngFor="let product of order.products">
+                        <td>{{product.product}}</td>
+                        <td>{{product.quantityPhoenix}}</td>
+                        <td>{{product.quantity}}</td>
+                    </tr>
+                </table>
+                <mat-divider></mat-divider>
+        </div>
+        <div mat-dialog-actions>
+            <button cdkFocusInitial (click)="validateDocument()" mat-raised-button color="primary">Valider</button>
+        </div>
+    </mat-dialog-content>
+</div>

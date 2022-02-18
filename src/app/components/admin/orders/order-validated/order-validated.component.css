@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+}
+.table-container{
+    margin: 20px;
+}
+
+.actions-icon{
+    cursor: pointer;
+    margin-right: 7px;
+}
+.filter-div{
+    display: flex;
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+.backoffice-button{
+    margin-top: 20px;
+}
+.button{
+    margin: 5px;
+}

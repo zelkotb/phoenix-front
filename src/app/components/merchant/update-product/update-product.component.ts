@@ -22,7 +22,7 @@ export class UpdateProductComponent implements OnInit {
   categories: Category[];
   mode: string = ""
   updateProductForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl({ value: null, disabled: true }, Validators.required),
     reference: new FormControl('', Validators.required),
     description: new FormControl(''),
     price: new FormControl(''),
