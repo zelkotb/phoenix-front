@@ -132,20 +132,38 @@ export class ListOrderComponent implements OnInit {
     this.dialog.open(OrderDocumentComponent);
   }
 
-  openCommentPopup(id: number){
-    this.orderService.getCommentByOrderId(id).subscribe(
-      result => {
-        this.dialog.open(DialogDataExampleDialog, {
-          data: {
-            id: id,
-            comment: result.comment
-          },
-        });
-      },
-      error => {
-        this.openSnackBarFailure(error);
-      }
-    )
+  openCommentPopup(order: Order){
+    if(order.status.toString() === 'REFUSE' 
+    || order.status.toString() === 'ANNULE' 
+    || order.status.toString() === 'RETOURNE'){
+      this.orderService.getCommentByOrderId(order.id).subscribe(
+        result => {
+          this.dialog.open(DialogDataExampleDialog, {
+            data: {
+              id: order.id,
+              comment: result.comment
+            },
+          });
+        },
+        error => {
+          this.openSnackBarFailure(error);
+        }
+      )
+    }else{
+      this.orderService.getComment(order.id).subscribe(
+        result => {
+          this.dialog.open(DialogDataExampleDialog, {
+            data: {
+              id: order.id,
+              comment: result.comment
+            },
+          });
+        },
+        error => {
+          this.openSnackBarFailure(error);
+        }
+      )
+    }
   }
 
 }

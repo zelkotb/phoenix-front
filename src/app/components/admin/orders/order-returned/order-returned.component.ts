@@ -8,6 +8,7 @@ import { Order } from '../../../../model/order';
 import { OrderService } from '../../../../services/order.service';
 import { SnackBarFailureComponent } from '../../../common/snack-bar-failure/snack-bar-failure.component';
 import { SnackBarSuccessComponent } from '../../../common/snack-bar-success/snack-bar-success.component';
+import { DialogDataExampleDialog } from '../order-refused-or-canceled/order-refused-or-canceled.component';
 
 @Component({
   selector: 'app-order-returned',
@@ -92,4 +93,19 @@ export class OrderReturnedComponent implements OnInit {
     });
   }
 
+  openCommentPopup(order: Order){
+      this.orderService.getCommentByOrderId(order.id).subscribe(
+        result => {
+          this.dialog.open(DialogDataExampleDialog, {
+            data: {
+              id: order.id,
+              comment: result.comment
+            },
+          });
+        },
+        error => {
+          this.openSnackBarFailure(error);
+        }
+      )
+  }
 }

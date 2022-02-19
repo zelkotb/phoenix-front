@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogData } from 'src/app/components/change-password/change-password.component';
+import { ConfirmationComponent } from 'src/app/components/common/confirmation/confirmation.component';
 import { SnackBarFailureComponent } from 'src/app/components/common/snack-bar-failure/snack-bar-failure.component';
 import { SnackBarSuccessComponent } from 'src/app/components/common/snack-bar-success/snack-bar-success.component';
 import { Order } from 'src/app/model/order';
@@ -111,14 +112,28 @@ export class OrderRefusedOrCanceledComponent implements OnInit {
   }
 
   returnOrder(id: number){
-    this.orderService.returnOrder(id).subscribe(
-      result => {
-        this.openSnackBarSuccess("l'order est retourné")
+    const dialogRef = this.dialog.open(ConfirmationComponent, {
+      data: {
+        text:
+          "Êtes-Vous sûr de retourner cette commande avec id : "
+          + id + "?",
       },
-      error => {
-        this.openSnackBarFailure(error);
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "confirmed") {
+        this.loading = true;
+        this.orderService.returnOrder(id).subscribe(
+          result => {
+            this.openSnackBarSuccess("l'order est retourné");
+            this.refresh();
+          },
+          error => {
+            this.openSnackBarFailure(error);
+          }
+        )
       }
-    )
+    });
+   
   }
 
 }

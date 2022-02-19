@@ -85,6 +85,9 @@ export class CreateProductComponent implements OnInit {
       result => {
         this.openSnackBarSuccess("Produit créé avec succès");
         this.refresh();
+        this.router.navigateByUrl('/phoenix/orders', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/phoenix/products']);
+        }); 
         this.loading = false;
       },
       error => {

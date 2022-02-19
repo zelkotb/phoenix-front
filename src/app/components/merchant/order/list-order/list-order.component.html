@@ -46,7 +46,11 @@
                          class="actions-icon delete-icon" color="accent">
                         delete_forever
                     </mat-icon>
-                    <button *ngIf="row.status === 'REFUSE' || row.status === 'ANNULE'" mat-icon-button (click)="openCommentPopup(row.id)" matTooltip="Visualiser le commentaire">
+                    <button 
+                    *ngIf="row.status === 'REFUSE' 
+                    || row.status === 'ANNULE' || row.status === 'IN_DISTRIBUTION' 
+                    || row.status === 'RETOURNE'" mat-icon-button 
+                    (click)="openCommentPopup(row)" matTooltip="Visualiser le commentaire">
                         <mat-icon>comment</mat-icon>
                     </button>
                 </td>

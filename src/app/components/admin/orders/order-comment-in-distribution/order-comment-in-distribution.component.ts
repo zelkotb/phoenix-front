@@ -62,7 +62,8 @@ export class OrderCommentInDistributionComponent implements OnInit {
     if(this.response.id === undefined || this.response.id === null){
       this.orderService.createComment(this.data.id,this.response).subscribe(
         result => {
-
+          this.openSnackBarSuccess("commentaire est crée");
+          this.dialogRef.close();
         },
         error => {
           this.openSnackBarFailure(error);
@@ -71,7 +72,8 @@ export class OrderCommentInDistributionComponent implements OnInit {
     }else{
       this.orderService.updateComment(this.data.id,this.response).subscribe(
         result => {
-
+          this.openSnackBarSuccess("commentaire est mis à jours");
+          this.dialogRef.close();
         },
         error => {
           this.openSnackBarFailure(error);
